@@ -5,20 +5,6 @@ import styles from './styles';
 
 class HomePage extends Component {
 
-  checkIn() {
-    AsyncStorage.getItem('id_token').then((token) => {
-      fetch('http://localhost:3000/users', {
-        method: 'GET',
-        headers: { 'Authorization': 'Bearer ' + token }
-      })
-      .then((response) => response.text())
-      .then((quote) => {
-        Alert.alert('Chuck Norris Quote', quote)
-      })
-      .done();
-    })
-  }
-
   getChallenges() {
     AsyncStorage.getItem('id_token').then((token) => {
       fetch('http://localhost:3000/users', {
@@ -74,7 +60,7 @@ class HomePage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.buttonWrapper} onPress={this.checkIn}>
+        <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.CheckIn}>
           <Text style={styles.buttonText}> Check In </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonWrapper} onPress={this.getChallenges}>

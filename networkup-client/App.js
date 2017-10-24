@@ -4,6 +4,7 @@ import { Text, View, ActivityIndicator, AsyncStorage } from 'react-native';
 
 import Authentication from './routes/Authentication.js'
 import HomePage from './routes/Homepage.js'
+import CheckIn from './routes/CheckIn.js'
 
 class App extends Component {
   constructor(){
@@ -45,6 +46,11 @@ class App extends Component {
               hideNavBar = {true}
               key='HomePage'
               title='Home Page'
+            />
+            <Scene
+              component= {CheckIn}
+              key="CheckIn"
+              title="Check In"
             />
           </Scene>
         </Router>
