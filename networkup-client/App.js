@@ -1,23 +1,56 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { Router, Scene } from 'react-native-router-flux';
+import { Text, View, ActivityIndicator, AsyncStorage } from 'react-native';
 
-export default class App extends React.Component {
+import Authentication from './routes/Authentication.js'
+import HomePage from './routes/Homepage.js'
+
+class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      hasToken: false,
+      isLoaded: false
+    }
+  }
+
+  componentDidMount(){
+    AsyncStorage.getItem('id_token').then((token) => {
+      this.setState({
+        hasToken: token !== null,
+        isLoaded: true
+      })
+    })
+  }
+
   render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
+    if(!this.state.isLoaded) {
+      return (
+        <ActivityIndicator />
+      )
+    } else {
+      return (
+        <Router>
+          <Scene key='root'>
+            <Scene
+              component= {Authentication}
+              hideNavBar= {true}
+              initial= {!this.state.hasToken}
+              key= 'Authentication'
+              title='Authentication'
+            />
+            <Scene
+              component= {HomePage}
+              initial= {this.state.hasToken}
+              hideNavBar = {true}
+              key='HomePage'
+              title='Home Page'
+            />
+          </Scene>
+        </Router>
+      );
+    }
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+module.exports = App;
