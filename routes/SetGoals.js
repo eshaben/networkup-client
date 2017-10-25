@@ -11,6 +11,14 @@ class SetGoals extends Component {
     this.state = { goalOne: null, goalTwo: null, goalThree: null };
   }
 
+  async saveItem(item, selectedValue) {
+    try {
+      await AsyncStorage.setItem(item, selectedValue);
+    } catch (error) {
+      console.error('AsyncStorage error: ' + error.message);
+    }
+  }
+
   setGoals() {
     AsyncStorage.getItem('id_token').then((token) => {
       let decodedToken = jwt_decode(token)
@@ -37,8 +45,10 @@ class SetGoals extends Component {
         })
       })
       .then((response) => response.text())
-      .then((quote) => {
+      .then((data) => {
         Alert.alert('Goals Saved!')
+        data = JSON.parse(data);
+        this.saveItem('event_id', JSON.stringify(data.id))
         Actions.EventMode();
       })
       .done();
