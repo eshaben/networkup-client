@@ -5,6 +5,13 @@ import styles from './styles';
 
 class HomePage extends Component {
 
+  constructor() {
+    super();
+    this.state = {
+      event_id: null,
+    };
+  }
+
   getChallenges() {
     AsyncStorage.getItem('id_token').then((token) => {
       fetch('http://localhost:3000/users', {
@@ -43,14 +50,26 @@ class HomePage extends Component {
     }
   }
 
+  getEventId(){
+    AsyncStorage.getItem('event_id').then((data) => {
+      this.setState({event_id: data})
+      this.redirect()
+    })
+  }
+
+  redirect(){
+    if (this.state.event_id === null){
+      Actions.CheckIn()
+    } else {
+      Actions.EventDetails()
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.CheckIn}>
-          <Text style={styles.buttonText}> Check In </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.EventMode}>
-          <Text style={styles.buttonText}> Event Mode </Text>
+        <TouchableOpacity style={styles.buttonWrapper} onPress={this.getEventId.bind(this)}>
+          <Text style={styles.buttonText}>Event Mode</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonWrapper} onPress={this.getChallenges}>
           <Text style={styles.buttonText}> Challenges </Text>

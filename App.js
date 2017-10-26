@@ -6,14 +6,16 @@ import Authentication from './routes/Authentication.js'
 import HomePage from './routes/Homepage.js'
 import CheckIn from './routes/CheckIn.js'
 import SetGoals from './routes/SetGoals.js'
-import EventMode from './routes/EventMode.js'
+import EventDetails from './routes/EventDetails.js'
+import SeeGoals from './routes/SeeGoals.js'
 
 class App extends Component {
   constructor(){
     super();
     this.state = {
       hasToken: false,
-      isLoaded: false
+      isLoaded: false,
+      event_id: null,
     }
   }
 
@@ -22,6 +24,11 @@ class App extends Component {
       this.setState({
         hasToken: token !== null,
         isLoaded: true
+      })
+    })
+    AsyncStorage.getItem('event_id').then((id) => {
+      this.setState({
+        event_id: id
       })
     })
   }
@@ -60,9 +67,16 @@ class App extends Component {
               title="Set Goals"
             />
             <Scene
-              component= {EventMode}
-              key="EventMode"
-              title="Event Mode"
+              component= {EventDetails}
+              key="EventDetails"
+              title="Event Details"
+            />
+            <Scene
+              component= {SeeGoals}
+              key="SeeGoals"
+              title="See Goals"
+              event_id = {AsyncStorage.getItem('event_id').then((id) => {
+                    return {event_id:id}})}
             />
           </Scene>
         </Router>

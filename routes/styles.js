@@ -11,6 +11,11 @@ export default styles = StyleSheet.create({
 		marginBottom: 10,
     width: 300
   },
+  buttonInLine:{
+    backgroundColor:'#D3D3D3',
+    marginBottom: 10,
+    width: 150
+  },
   container: {
     alignItems: 'center',
     flex: 1,

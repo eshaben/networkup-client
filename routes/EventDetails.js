@@ -6,11 +6,14 @@ import { Card, ListItem, Button } from 'react-native-elements';
 import jwt_decode from 'jwt-decode';
 
 
-class EventMode extends Component {
+class EventDetails extends Component {
 
   constructor() {
     super();
-    this.state = {event_id: null };
+    this.state = {
+      event_id: null,
+      event_details: null,
+    };
   }
 
   getEventId(){
@@ -34,37 +37,33 @@ class EventMode extends Component {
       .then((response) => response.text())
       .then((data) => {
         data = JSON.parse(data)
-        console.log(data[0].goals[0].one_description);
+        this.setState({event_details: data})
+        Actions.SeeGoals({event_details: data})
+        // console.log(this.state.event_details);
+        // console.log(data[0].goals[0].one_description);
       })
       .done();
     })
   }
 
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}> Event Mode </Text>
-        <Card title="CARD WITH DIVIDER">
-          <View style={styles.user}>
-            <Text style={styles.name}>Hi</Text>
-          </View>
-        </Card>
-        <Card title="CARD WITH DIVIDER">
-          <View style={styles.user}>
-            <Text style={styles.name}>Hi</Text>
-          </View>
-        </Card>
-        <Card title="CARD WITH DIVIDER">
-          <View style={styles.user}>
-            <Text style={styles.name}>Hi</Text>
-          </View>
-        </Card>
-          <TouchableOpacity style={styles.buttonWrapper} onPress={this.getGoals.bind(this)}>
-            <Text style={styles.buttonText}> Go Back </Text>
-          </TouchableOpacity>
+        <Text style={styles.subtitle}> You are currently checked into an event </Text>
+        <TouchableOpacity style={styles.buttonWrapper} onPress={this.getGoals.bind(this)}>
+          <Text style={styles.buttonText}> Goals </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonWrapper}>
+          <Text style={styles.buttonText}> Check Out </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.HomePage}>
+          <Text style={styles.buttonText}> Go Back </Text>
+        </TouchableOpacity>
       </View>
     );
   }
 }
 
-export default EventMode;
+export default EventDetails;
