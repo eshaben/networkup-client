@@ -33,7 +33,8 @@ class EventMode extends Component {
       })
       .then((response) => response.text())
       .then((data) => {
-        console.log(data);
+        data = JSON.parse(data)
+        console.log(data[0].goals[0].one_description);
       })
       .done();
     })
