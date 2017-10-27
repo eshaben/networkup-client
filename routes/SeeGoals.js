@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Alert, Image, Text, TouchableOpacity, View, AsyncStorage, TextInput} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import styles from './styles';
-import { Card, ListItem, Button, ButtonGroup } from 'react-native-elements';
+import { Card, ListItem, Button } from 'react-native-elements';
 import jwt_decode from 'jwt-decode';
 
 
@@ -12,37 +12,57 @@ class EventDetails extends Component {
     super();
     this.state = {
       event_id: props.event_id['_55'].event_id,
-      event_details: props.event_details[0]
+      event_details: props.event_details[0],
     };
   }
 
-  whatButtonIsThis(){
-    console.log(selectedIndex);
+  confirmGoal(){
+    console.log("hi");
   }
 
   render(props) {
-    let buttons = ["Completed", "Skip"]
+
     return (
       <View style={styles.container}>
         <Text style={styles.subtitle}> Goals </Text>
         <View style={styles.form}>
           <Card title = {this.state.event_details.goals[0].one_description}>
-            <ButtonGroup
-              buttons= {buttons}
-              onPress={this.whatButtonIsThis}
-            />
+            <View style={{flexDirection: 'row'}}>
+              <Button
+                raised
+                onPress={this.confirmGoal}
+                title='Completed' />
+              <Button
+                raised
+                title='Skip' />
+            </View>
           </Card>
           <Card title = {this.state.event_details.goals[0].two_description}>
-            <ButtonGroup
-              buttons= {buttons}
-            />
+            <View style={{flexDirection: 'row'}}>
+              <Button
+                raised
+                onPress={this.confirmGoal}
+                title='Completed' />
+              <Button
+                raised
+                title='Skip' />
+            </View>
           </Card>
           <Card title = {this.state.event_details.goals[0].three_description}>
-            <ButtonGroup
-              buttons= {buttons}
-            />
+            <View style={{flexDirection: 'row'}}>
+              <Button
+                raised
+                onPress={this.confirmGoal}
+                title='Completed' />
+              <Button
+                raised
+                title='Skip' />
+            </View>
           </Card>
         </View>
+        <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.EventDetails}>
+          <Text style={styles.buttonText}> Done </Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.HomePage}>
           <Text style={styles.buttonText}> Go Back </Text>
         </TouchableOpacity>
