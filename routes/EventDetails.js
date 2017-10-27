@@ -39,8 +39,6 @@ class EventDetails extends Component {
         data = JSON.parse(data)
         this.setState({event_details: data})
         Actions.SeeGoals({event_details: data})
-        // console.log(this.state.event_details);
-        // console.log(data[0].goals[0].one_description);
       })
       .done();
     })
@@ -55,7 +53,7 @@ class EventDetails extends Component {
         <TouchableOpacity style={styles.buttonWrapper} onPress={this.getGoals.bind(this)}>
           <Text style={styles.buttonText}> Goals </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonWrapper}>
+        <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.Retro}>
           <Text style={styles.buttonText}> Check Out </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.HomePage}>

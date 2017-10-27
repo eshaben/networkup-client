@@ -8,6 +8,7 @@ import CheckIn from './routes/CheckIn.js'
 import SetGoals from './routes/SetGoals.js'
 import EventDetails from './routes/EventDetails.js'
 import SeeGoals from './routes/SeeGoals.js'
+import Retro from './routes/Retro.js'
 
 class App extends Component {
   constructor(){
@@ -77,6 +78,11 @@ class App extends Component {
               title="See Goals"
               event_id = {AsyncStorage.getItem('event_id').then((id) => {
                     return {event_id:id}})}
+            />
+            <Scene
+              component= {Retro}
+              key="Retro"
+              title="Retro"
             />
           </Scene>
         </Router>

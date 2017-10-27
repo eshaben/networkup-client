@@ -40,5 +40,13 @@ export default styles = StyleSheet.create({
     fontSize: 25,
     margin: 10,
     textAlign: 'center'
+  },
+  text: {
+    fontSize: 15,
+    margin: 10,
+    textAlign: 'center'
+  },
+  contentContainer: {
+    paddingVertical: 20
   }
 });
