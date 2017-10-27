@@ -12,20 +12,6 @@ class HomePage extends Component {
     };
   }
 
-  getChallenges() {
-    AsyncStorage.getItem('id_token').then((token) => {
-      fetch('http://localhost:3000/users', {
-        method: 'GET',
-        headers: { 'Authorization': 'Bearer ' + token }
-      })
-      .then((response) => response.text())
-      .then((quote) => {
-        Alert.alert('Chuck Norris Quote', quote)
-      })
-      .done();
-    })
-  }
-
   getMyStats() {
     AsyncStorage.getItem('id_token').then((token) => {
       fetch('http://localhost:3000/users', {
@@ -71,7 +57,7 @@ class HomePage extends Component {
         <TouchableOpacity style={styles.buttonWrapper} onPress={this.getEventId.bind(this)}>
           <Text style={styles.buttonText}>Event Mode</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonWrapper} onPress={this.getChallenges}>
+        <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.Challenges}>
           <Text style={styles.buttonText}> Challenges </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonWrapper} onPress={this.getMyStats}>

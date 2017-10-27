@@ -57,6 +57,7 @@ class Retro extends Component {
         Alert.alert('Retro Saved!')
         data = JSON.parse(data);
         this.removeItem('event_id')
+        Actions.HomePage()
       })
       .done();
     })

@@ -9,6 +9,7 @@ import SetGoals from './routes/SetGoals.js'
 import EventDetails from './routes/EventDetails.js'
 import SeeGoals from './routes/SeeGoals.js'
 import Retro from './routes/Retro.js'
+import Challenges from './routes/Challenges.js'
 
 class App extends Component {
   constructor(){
@@ -83,6 +84,11 @@ class App extends Component {
               component= {Retro}
               key="Retro"
               title="Retro"
+            />
+            <Scene
+              component= {Challenges}
+              key="Challenges"
+              title="Challenges"
             />
           </Scene>
         </Router>
