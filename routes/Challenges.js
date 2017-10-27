@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Alert, Image, Text, TouchableOpacity, View, AsyncStorage, ListView} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import styles from './styles';
+import { Card, ListItem, Button, Badge } from 'react-native-elements';
 import jwt_decode from 'jwt-decode';
 
 class Challenges extends Component {
@@ -39,12 +40,21 @@ class Challenges extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}> Challenges </Text>
-        <View>
+        <View style={styles.form}>
          {this.state.data.map(function(list, l){
-           return (<Text key={l}>{list.description}</Text>)
+           return (
+             <Card key={l}>
+               <Text style={styles.text}>
+                {list.description}
+               </Text>
+               <Badge
+                value={list.points + ' points'}
+                textStyle={{ color: 'orange' }}
+              />
+             </Card>
+           )
          })}
-
-          </View>
+         </View>
         <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.HomePage}>
           <Text style={styles.buttonText}> Go Back </Text>
         </TouchableOpacity>
