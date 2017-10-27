@@ -11,7 +11,7 @@ class Challenges extends Component {
     super();
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     this.state = {
-      data: []
+      data: [],
     };
   }
 

@@ -49,7 +49,7 @@ class SetGoals extends Component {
         Alert.alert('Goals Saved!')
         data = JSON.parse(data);
         this.saveItem('event_id', JSON.stringify(data.id))
-        Actions.EventMode();
+        Actions.HomePage();
       })
       .done();
     })

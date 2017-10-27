@@ -77,8 +77,6 @@ class App extends Component {
               component= {SeeGoals}
               key="SeeGoals"
               title="See Goals"
-              event_id = {AsyncStorage.getItem('event_id').then((id) => {
-                    return {event_id:id}})}
             />
             <Scene
               component= {Retro}

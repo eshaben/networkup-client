@@ -11,12 +11,49 @@ class EventDetails extends Component {
   constructor(props) {
     super();
     this.state = {
-      event_id: props.event_id['_55'].event_id,
-      event_details: props.event_details[0],
+      event_id: null,
+      event_details: null,
       goal_one: false,
       goal_two: false,
-      goal_three: false
+      goal_three: false,
+      goal_one_desc: '',
+      goal_two_desc: '',
+      goal_three_desc: ''
     };
+  }
+
+  getEventId(){
+    AsyncStorage.getItem('event_id').then((data) => {
+      this.setState({event_id: data})
+    })
+  }
+
+  componentDidMount(){
+    this.getEventId()
+    AsyncStorage.getItem('id_token').then((token) => {
+      let decodedToken = jwt_decode(token)
+      fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+         }
+      })
+      .then((response) => response.text())
+      .then((data) => {
+        data = JSON.parse(data);
+        this.setState({
+          goal_one: data[0].goals[0].one_completed,
+          goal_two: data[0].goals[0].two_completed,
+          goal_three: data[0].goals[0].three_completed,
+          goal_one_desc: data[0].goals[0].one_description,
+          goal_two_desc: data[0].goals[0].two_description,
+          goal_three_desc: data[0].goals[0].three_description
+        })
+      })
+      .done();
+    })
   }
 
   confirmGoalOne(){
@@ -63,7 +100,6 @@ class EventDetails extends Component {
   }
 
   render(props) {
-    console.log(this.state.goal_one);
     if(this.state.goal_one){
       completedOne = "Completed"
     } else {
@@ -84,19 +120,19 @@ class EventDetails extends Component {
       <View style={styles.container}>
         <Text style={styles.subtitle}> Goals </Text>
         <View style={styles.form}>
-          <Card title = {this.state.event_details.goals[0].one_description}>
+          <Card title = {this.state.goal_one_desc}>
             <Button
               raised
               onPress={this.confirmGoalOne.bind(this)}
               title={completedOne} />
           </Card>
-          <Card title = {this.state.event_details.goals[0].two_description}>
+          <Card title = {this.state.goal_two_desc}>
               <Button
                 raised
                 onPress={this.confirmGoalTwo.bind(this)}
                 title={completedTwo} />
           </Card>
-          <Card title = {this.state.event_details.goals[0].three_description}>
+          <Card title = {this.state.goal_three_desc}>
               <Button
                 raised
                 onPress={this.confirmGoalThree.bind(this)}
