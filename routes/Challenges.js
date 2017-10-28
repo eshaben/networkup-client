@@ -39,7 +39,7 @@ class Challenges extends Component {
     AsyncStorage.getItem('id_token').then((token) => {
       let decodedToken = jwt_decode(token)
       let id = decodedToken.id
-      fetch('http://localhost:3000/account_challenges/' + 1, {
+      fetch('http://localhost:3000/account_challenges/' + id, {
         method: 'GET',
         headers: { 'Authorization': 'Bearer ' + token }
       })
