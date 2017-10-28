@@ -9,14 +9,15 @@ class Challenges extends Component {
 
   constructor() {
     super();
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     this.state = {
       data: [],
+      userData: null
     };
   }
 
   componentDidMount(){
     this.getChallenges()
+    this.getUsersChallenges()
   }
 
   getChallenges() {
@@ -27,8 +28,25 @@ class Challenges extends Component {
       })
       .then((response) => response.text())
       .then((data) => {
-        let datas = JSON.parse(data)
-        this.setState({data: datas})
+        data = JSON.parse(data)
+        this.setState({data: data})
+      })
+      .done();
+    })
+  }
+
+  getUsersChallenges() {
+    AsyncStorage.getItem('id_token').then((token) => {
+      let decodedToken = jwt_decode(token)
+      let id = decodedToken.id
+      fetch('http://localhost:3000/account_challenges/' + 1, {
+        method: 'GET',
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+      .then((response) => response.text())
+      .then((data) => {
+        data = JSON.parse(data)
+        this.setState({userData: data})
       })
       .done();
     })
@@ -36,7 +54,6 @@ class Challenges extends Component {
 
 
   render() {
-    this.getChallenges()
     return (
       <View style={styles.container}>
         <Text style={styles.title}> Challenges </Text>
@@ -49,7 +66,7 @@ class Challenges extends Component {
                </Text>
                <Badge
                 value={list.points + ' points'}
-                textStyle={{ color: 'orange' }}
+                textStyle={{ color: 'white'}}
               />
              </Card>
            )

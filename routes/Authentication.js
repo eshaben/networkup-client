@@ -20,7 +20,6 @@ class Authentication extends Component {
 
   userSignup() {
     if (!this.state.email || !this.state.password) return;
-    // TODO: localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
     fetch('http://localhost:3000/auth/signup', {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
@@ -34,7 +33,7 @@ class Authentication extends Component {
       console.log(responseData);
 
       this.saveItem('id_token', responseData.token),
-      Alert.alert( 'Signup Success!', 'Click the button to get a Chuck Norris quote!'),
+      Alert.alert( 'Signup Success! Welcome to NetworkUp!'),
       Actions.HomePage();
     })
     .done();
@@ -42,7 +41,6 @@ class Authentication extends Component {
 
   userLogin() {
     if (!this.state.email || !this.state.password) return;
-    // TODO: localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
     fetch('http://localhost:3000/auth/login', {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
