@@ -13,6 +13,12 @@ class HomePage extends Component {
   }
 
   async userLogout() {
+    Alert.alert('If you are in the middle of an event, your event details will be lost.');
+    try {
+      await AsyncStorage.removeItem('event_id');
+    } catch (error) {
+      console.log('AsyncStorage error: ' + error.message);
+    }
     try {
       await AsyncStorage.removeItem('id_token');
       Alert.alert('Logout Success!');

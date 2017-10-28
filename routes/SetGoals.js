@@ -22,7 +22,8 @@ class SetGoals extends Component {
   setGoals() {
     AsyncStorage.getItem('id_token').then((token) => {
       let decodedToken = jwt_decode(token)
-      console.log(decodedToken);
+      let id = decodedToken.id
+      console.log(id);
       fetch('http://localhost:3000/events', {
         method: 'POST',
         headers: {
@@ -33,7 +34,7 @@ class SetGoals extends Component {
         body: JSON.stringify({
           checked_in: true,
           checked_out: false,
-          account_id: decodedToken.id,
+          account_id: 1,
           goals: [{
             one_description: this.state.goalOne,
             one_completed: false,
