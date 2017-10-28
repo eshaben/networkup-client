@@ -12,20 +12,6 @@ class HomePage extends Component {
     };
   }
 
-  getMyStats() {
-    AsyncStorage.getItem('id_token').then((token) => {
-      fetch('http://localhost:3000/users', {
-        method: 'GET',
-        headers: { 'Authorization': 'Bearer ' + token }
-      })
-      .then((response) => response.text())
-      .then((quote) => {
-        Alert.alert('Chuck Norris Quote', quote)
-      })
-      .done();
-    })
-  }
-
   async userLogout() {
     try {
       await AsyncStorage.removeItem('id_token');
@@ -60,7 +46,7 @@ class HomePage extends Component {
         <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.Challenges}>
           <Text style={styles.buttonText}> Challenges </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonWrapper} onPress={this.getMyStats}>
+        <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.MyStats}>
           <Text style={styles.buttonText}> My Stats </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonWrapper} onPress={this.userLogout}>

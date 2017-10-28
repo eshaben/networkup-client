@@ -10,6 +10,7 @@ import EventDetails from './routes/EventDetails.js'
 import SeeGoals from './routes/SeeGoals.js'
 import Retro from './routes/Retro.js'
 import Challenges from './routes/Challenges.js'
+import MyStats from './routes/MyStats.js'
 
 class App extends Component {
   constructor(){
@@ -87,6 +88,11 @@ class App extends Component {
               component= {Challenges}
               key="Challenges"
               title="Challenges"
+            />
+            <Scene
+              component= {MyStats}
+              key="MyStats"
+              title="My Stats"
             />
           </Scene>
         </Router>
