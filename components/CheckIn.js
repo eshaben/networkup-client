@@ -9,12 +9,16 @@ export default class CheckIn extends Component {
 
   constructor() {
     super();
-    this.state = {event_id: this.getEventId() };
+    this.state = {event_id: null };
+  }
+
+  componentDidMount(){
+    this.getEventId()
   }
 
   getEventId(){
     AsyncStorage.getItem('event_id').then((data) => {
-      return data
+      this.setState({event_id: data})
     })
   }
 
@@ -71,7 +75,7 @@ export default class CheckIn extends Component {
       return (
         <View style={styles.container}>
         <Text style={styles.subtitle}>Event Mode</Text>
-        <Text style={styles.text}>You are currently checked into an event.
+        <Text style={[styles.text, styles.form]}>You are currently checked into an event.
         If you have not already set your goals, swipe left to do so!</Text>
         </View>
       )
