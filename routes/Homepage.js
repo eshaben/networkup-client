@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Alert, Image, Text, TouchableOpacity, View, AsyncStorage} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import styles from './styles';
+import FooterTabsIconExample from '../components/Footer.js'
 
 class HomePage extends Component {
 
@@ -44,20 +45,9 @@ class HomePage extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <TouchableOpacity style={styles.buttonWrapper} onPress={this.getEventId.bind(this)}>
-          <Text style={styles.buttonText}>Event Mode</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.Challenges}>
-          <Text style={styles.buttonText}> Challenges </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.MyStats}>
-          <Text style={styles.buttonText}> My Stats </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonWrapper} onPress={this.userLogout}>
-          <Text style={styles.buttonText} > Log out </Text>
-        </TouchableOpacity>
-      </View>
+
+      <FooterTabsIconExample />
+
     );
   }
 }
