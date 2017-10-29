@@ -1,30 +1,25 @@
 import React, { Component } from 'react';
-import { Container, Header, Tab, Tabs } from 'native-base';
-import Tab1 from './tabOne';
-import Tab2 from './tabTwo';
-​export default class TabsScrollableExample extends Component {
-  render() {
+import { Tab, Tabs, ScrollableTab } from 'native-base';
+import CheckIn from './CheckIn.js'
+import SetGoals from './SetGoals.js'
+
+export default class HeaderTabs extends Component {
+  render(){
     return (
-      <Container>
-        <Header hasTabs/>
         <Tabs renderTabBar={()=> <ScrollableTab />}>
-          <Tab heading="Tab1">
-            <Tab1 />
+          <Tab heading="Check In">
+            <CheckIn />
           </Tab>
-          <Tab heading="Tab2">
-            <Tab2 />
+          <Tab heading="Goals">
+            <SetGoals />
           </Tab>
-          <Tab heading="Tab3">
-            <Tab3 />
+          <Tab heading="Network">
           </Tab>
-          <Tab heading="Tab4">
-            <Tab4 />
+          <Tab heading="Check Out">
           </Tab>
-          <Tab heading="Tab5">
-            <Tab5 />
+          <Tab heading="Retro">
           </Tab>
         </Tabs>
-      </Container>
     );
   }
 }

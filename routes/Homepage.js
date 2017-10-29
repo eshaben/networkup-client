@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {Alert, Image, Text, TouchableOpacity, View, AsyncStorage} from 'react-native';
+import Container from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import styles from './styles';
-import FooterTabsIconExample from '../components/Footer.js'
+import EventHome from '../components/EventHome.js'
 
 class HomePage extends Component {
 
@@ -45,9 +46,7 @@ class HomePage extends Component {
 
   render() {
     return (
-
-      <FooterTabsIconExample />
-
+        <EventHome />
     );
   }
 }

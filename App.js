@@ -5,7 +5,7 @@ import { Text, View, ActivityIndicator, AsyncStorage } from 'react-native';
 import Authentication from './routes/Authentication.js'
 import HomePage from './routes/Homepage.js'
 import CheckIn from './routes/CheckIn.js'
-import SetGoals from './routes/SetGoals.js'
+import SetGoals from './components/SetGoals.js'
 import EventDetails from './routes/EventDetails.js'
 import SeeGoals from './routes/SeeGoals.js'
 import Retro from './routes/Retro.js'
