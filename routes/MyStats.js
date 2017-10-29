@@ -51,15 +51,17 @@ class Challenges extends Component {
       .then((data) => {
         data = JSON.parse(data)
         data.forEach(function(event){
-          events++
-          cards_given += event.retros[0].cards_given
-          cards_received += event.retros[0].cards_received
-          connector_connections += event.retros[0].connector_connections
-          conversations += event.retros[0].conversations
-          meaningful_conversations += event.retros[0].meaningful_conversations
-          provided_help.push(event.retros[0].provided_help)
-          received_help.push(event.retros[0].received_help)
-          rating.push(event.retros[0].rating)
+          if (event.retros.length !== 0){
+            events++
+            cards_given += event.retros[0].cards_given
+            cards_received += event.retros[0].cards_received
+            connector_connections += event.retros[0].connector_connections
+            conversations += event.retros[0].conversations
+            meaningful_conversations += event.retros[0].meaningful_conversations
+            provided_help.push(event.retros[0].provided_help)
+            received_help.push(event.retros[0].received_help)
+            rating.push(event.retros[0].rating)
+          }
         })
         this.setState({data: data})
         this.setState({events: events})

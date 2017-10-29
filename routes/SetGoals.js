@@ -34,7 +34,7 @@ class SetGoals extends Component {
         body: JSON.stringify({
           checked_in: true,
           checked_out: false,
-          account_id: 1,
+          account_id: id,
           goals: [{
             one_description: this.state.goalOne,
             one_completed: false,
