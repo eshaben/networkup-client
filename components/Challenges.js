@@ -72,9 +72,6 @@ class Challenges extends Component {
            )
          })}
          </View>
-        <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.HomePage}>
-          <Text style={styles.buttonText}> Go Back </Text>
-        </TouchableOpacity>
       </View>
     );
   }

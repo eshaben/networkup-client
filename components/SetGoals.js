@@ -25,17 +25,14 @@ export default class SetGoals extends Component {
 
   getEventId(){
     AsyncStorage.getItem('event_id').then((data) => {
-      console.log(data);
       this.setState({event_id: data})
     })
   }
 
   setGoals() {
     AsyncStorage.getItem('id_token').then((token) => {
-      let decodedToken = jwt_decode(token)
-      let id = decodedToken.id
       fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
-        method: 'PUT',
+        method: 'POST',
         headers: {
           'Authorization': 'Bearer ' + token,
           'Accept': 'application/json',
@@ -72,8 +69,9 @@ export default class SetGoals extends Component {
       .then((response) => response.text())
       .then((data) => {
         data = JSON.parse(data)
-        console.log(data[0].goals);
+        console.log(data[0].goals.length);
         if(data[0].goals.length > 0){
+          console.log("meow");
           this.setState({
             saved: true,
             goalOne: data[0].goals.one_description,
@@ -87,6 +85,7 @@ export default class SetGoals extends Component {
   }
 
   render(){
+    console.log(this.state.saved);
     if(this.state.event_id === null){
       return (
         <View style={styles.container}>
@@ -152,6 +151,14 @@ export default class SetGoals extends Component {
             <View style={inlineStyles.footerWrapper}>
               <Text style={styles.text}>1.</Text>
               <Text style={styles.text}> {this.state.goalOne} </Text>
+            </View>
+            <View style={inlineStyles.footerWrapper}>
+              <Text style={styles.text}>2.</Text>
+              <Text style={styles.text}> {this.state.goalTwo} </Text>
+            </View>
+            <View style={inlineStyles.footerWrapper}>
+              <Text style={styles.text}>3.</Text>
+              <Text style={styles.text}> {this.state.goalThree} </Text>
             </View>
           </View>
 
