@@ -11,6 +11,7 @@ import SeeGoals from './routes/SeeGoals.js'
 import Retro from './routes/Retro.js'
 import Challenges from './routes/Challenges.js'
 import MyStats from './routes/MyStats.js'
+import LogoutPage from './routes/Logout.js'
 
 class App extends Component {
   constructor(){
@@ -93,6 +94,11 @@ class App extends Component {
               component= {MyStats}
               key="MyStats"
               title="My Stats"
+            />
+            <Scene
+              component= {LogoutPage}
+              key="LogoutPage"
+              title="Log Out"
             />
           </Scene>
         </Router>
