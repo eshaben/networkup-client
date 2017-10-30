@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import {Alert, Image, Text, TouchableOpacity, View, AsyncStorage} from 'react-native';
+import {Container, Alert, Image, Text, TouchableOpacity, View, AsyncStorage} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import styles from './styles';
+import HeaderExample from '../components/Header.js'
+import FooterTabs from '../components/Footer.js'
 
 class HomePage extends Component {
 

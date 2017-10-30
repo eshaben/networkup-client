@@ -11,6 +11,9 @@ import SeeGoals from './routes/SeeGoals.js'
 import Retro from './routes/Retro.js'
 import Challenges from './routes/Challenges.js'
 import MyStats from './routes/MyStats.js'
+import EventHome from './components/EventHome.js'
+import HeaderExample from './components/Header.js'
+import FooterTabs from './components/Footer.js'
 
 class App extends Component {
   constructor(){
