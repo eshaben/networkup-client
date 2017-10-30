@@ -4,6 +4,7 @@ import CheckIn from './CheckIn.js'
 import SetGoals from './SetGoals.js'
 import Network from './Network.js'
 import CheckOut from './CheckOut.js'
+import Retro from './Retro.js'
 
 export default class HeaderTabs extends Component {
   render(){
@@ -22,6 +23,7 @@ export default class HeaderTabs extends Component {
             <CheckOut />
           </Tab>
           <Tab heading="Retro">
+            <Retro />
           </Tab>
         </Tabs>
     );

@@ -46,14 +46,15 @@ export default class CheckIn extends Component {
       .then((data) => {
         data = JSON.parse(data)
         let eventGoals = data[0].goals
-        this.setState({goals: eventGoals})
-        this.setState({one_completed: eventGoals[0].one_completed})
-        this.setState({two_completed: eventGoals[0].two_completed})
-        this.setState({three_completed: eventGoals[0].three_completed})
-        this.setState({one_description: eventGoals[0].one_description})
-        this.setState({two_description: eventGoals[0].two_description})
-        this.setState({three_description: eventGoals[0].three_description})
-
+        if (eventGoals.length > 0){
+          this.setState({goals: eventGoals})
+          this.setState({one_completed: data[0].goals[0].one_completed})
+          this.setState({two_completed: eventGoals[0].two_completed})
+          this.setState({three_completed: eventGoals[0].three_completed})
+          this.setState({one_description: eventGoals[0].one_description})
+          this.setState({two_description: eventGoals[0].two_description})
+          this.setState({three_description: eventGoals[0].three_description})
+        }
       })
       .done();
     })
@@ -129,38 +130,46 @@ export default class CheckIn extends Component {
         </View>
       )
     } else {
-      return (
-        <View style={styles.container}>
-          <Text style={styles.subtitle}>Event Mode</Text>
-          <Text style={[styles.text, styles.form]}>You have successfully checked in
-          and set your goals for the event! Good luck! You got this! Once you accomplish a goal mark it as completed! </Text>
+      if (this.state.goals.length === 0){
+        return (
+          <View style={styles.container}>
+            <Text style={styles.subtitle, styles.form}>You have not yet entered any goals for this event. Swipe right to set your goals for the event!</Text>
+          </View>
+        )
+      } else {
+        return (
+          <View style={styles.container}>
+            <Text style={styles.subtitle}>Event Mode</Text>
+            <Text style={[styles.text, styles.form]}>You have successfully checked in
+            and set your goals for the event! Good luck! You got this! Once you accomplish a goal mark it as completed! </Text>
 
-          <View style={inlineStyles.footerWrapper}>
-            <Text style={styles.text}>1.</Text>
-            <Text style={styles.text}> {this.state.goals[0].one_description} </Text>
+            <View style={inlineStyles.footerWrapper}>
+              <Text style={styles.text}>1.</Text>
+              <Text style={styles.text}> {this.state.one_description} </Text>
+            </View>
+            <TouchableOpacity style={inlineStyles.buttonWrapperSmall}  onPress={this.confirmGoalOne.bind(this)}>
+              <Text style={inlineStyles.buttonTextSmall}>{completedOne} </Text>
+            </TouchableOpacity>
+            <View style={inlineStyles.footerWrapper}>
+              <Text style={styles.text}>2.</Text>
+              <Text style={styles.text}> {this.state.two_description} </Text>
+            </View>
+            <TouchableOpacity style={inlineStyles.buttonWrapperSmall} onPress={this.confirmGoalTwo.bind(this)} >
+              <Text style={inlineStyles.buttonTextSmall}>{completedTwo} </Text>
+            </TouchableOpacity>
+            <View style={inlineStyles.footerWrapper}>
+              <Text style={styles.text}>3.</Text>
+              <Text style={styles.text}> {this.state.three_description} </Text>
+            </View>
+            <TouchableOpacity style={inlineStyles.buttonWrapperSmall} onPress={this.confirmGoalThree.bind(this)} >
+              <Text style={inlineStyles.buttonTextSmall}>{completedThree} </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonWrapper} onPress={this.sendGoalCompletion.bind(this)}>
+              <Text style={styles.buttonText}> Done </Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity style={inlineStyles.buttonWrapperSmall}  onPress={this.confirmGoalOne.bind(this)}>
-            <Text style={inlineStyles.buttonTextSmall}>{completedOne} </Text>
-          </TouchableOpacity>
-          <View style={inlineStyles.footerWrapper}>
-            <Text style={styles.text}>2.</Text>
-            <Text style={styles.text}> {this.state.goals[0].two_description} </Text>
-          </View>
-          <TouchableOpacity style={inlineStyles.buttonWrapperSmall} onPress={this.confirmGoalTwo.bind(this)} >
-            <Text style={inlineStyles.buttonTextSmall}>{completedTwo} </Text>
-          </TouchableOpacity>
-          <View style={inlineStyles.footerWrapper}>
-            <Text style={styles.text}>3.</Text>
-            <Text style={styles.text}> {this.state.goals[0].three_description} </Text>
-          </View>
-          <TouchableOpacity style={inlineStyles.buttonWrapperSmall} onPress={this.confirmGoalThree.bind(this)} >
-            <Text style={inlineStyles.buttonTextSmall}>{completedThree} </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonWrapper} onPress={this.sendGoalCompletion.bind(this)}>
-            <Text style={styles.buttonText}> Done </Text>
-          </TouchableOpacity>
-        </View>
-      )
+        )
+      }
     }
   }
 }
