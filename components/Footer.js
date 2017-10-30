@@ -11,13 +11,13 @@ export default class FooterTabs extends Component {
         <Footer>
           <FooterTab>
             <Button active>
-              <MaterialIcons style={{fontSize: 25}}  name="event-available" />
+              <MaterialIcons style={{fontSize: 25}}  name="event-available" onPress={Actions.HomePage}/>
             </Button>
             <Button>
               <MaterialCommunityIcons style={{fontSize: 25}} name="trophy" onPress={Actions.Challenges}/>
             </Button>
             <Button>
-              <MaterialCommunityIcons style={{fontSize:25}} name="chart-bar" />
+              <MaterialCommunityIcons style={{fontSize:25}} name="chart-bar" onPress={Actions.MyStats}/>
             </Button>
             <Button>
               <MaterialCommunityIcons style={{fontSize:25}} name="logout" onPress={Actions.LogoutPage} />
