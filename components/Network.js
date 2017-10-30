@@ -34,7 +34,8 @@ export default class CheckIn extends Component {
       return (
         <View style={styles.container}>
         <Text style={styles.subtitle}>Event Mode</Text>
-        <Text style={[styles.text, styles.form]}>GET OUT AND WORK IT! Good luck! You got this!</Text>
+        <Text style={[styles.text, styles.form]}>You have successfully checked in
+         and set your goals for the event! Good luck! You got this! Once you accomplish a goal mark it as completed! </Text>
         </View>
       )
     }

@@ -3,6 +3,7 @@ import { Tab, Tabs, ScrollableTab } from 'native-base';
 import CheckIn from './CheckIn.js'
 import SetGoals from './SetGoals.js'
 import Network from './Network.js'
+import CheckOut from './CheckOut.js'
 
 export default class HeaderTabs extends Component {
   render(){
@@ -18,6 +19,7 @@ export default class HeaderTabs extends Component {
             <Network />
           </Tab>
           <Tab heading="Check Out">
+            <CheckOut />
           </Tab>
           <Tab heading="Retro">
           </Tab>
