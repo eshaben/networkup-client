@@ -14,13 +14,14 @@ export default class SetGoals extends Component {
       goalTwo: null,
       goalThree: null,
       event_id: null,
-      saved: false
+      saved: false,
+      goals: []
     };
   }
 
   componentDidMount(){
     this.getEventId()
-    this.getGoals()
+    this.getGoalsData()
   }
 
   getEventId(){
@@ -29,34 +30,27 @@ export default class SetGoals extends Component {
     })
   }
 
-  setGoals() {
+  getGoalsData(){
     AsyncStorage.getItem('id_token').then((token) => {
       fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
-        method: 'POST',
+        method: 'GET',
         headers: {
           'Authorization': 'Bearer ' + token,
           'Accept': 'application/json',
           'Content-Type': 'application/json'
-         },
-        body: JSON.stringify({
-          one_description: this.state.goalOne,
-          one_completed: false,
-          two_description: this.state.goalTwo,
-          two_completed: false,
-          three_description: this.state.goalThree,
-          three_completed: false
-        })
+         }
       })
       .then((response) => response.text())
       .then((data) => {
-        Alert.alert('Goals Saved!')
-        this.setState({saved: true})
+        data = JSON.parse(data)
+        let eventGoals = data[0].goals
+        this.setState({goals: eventGoals})
       })
       .done();
     })
   }
 
-  updateGoals() {
+  setGoals() {
     AsyncStorage.getItem('id_token').then((token) => {
       fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
         method: 'PUT',
@@ -76,6 +70,7 @@ export default class SetGoals extends Component {
       })
       .then((response) => response.text())
       .then((data) => {
+        data = JSON.parse(data)
         Alert.alert('Goals Saved!')
         this.setState({saved: true})
       })
@@ -83,36 +78,7 @@ export default class SetGoals extends Component {
     })
   }
 
-  getGoals(){
-    AsyncStorage.getItem('id_token').then((token) => {
-      fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
-        method: 'GET',
-        headers: {
-          'Authorization': 'Bearer ' + token,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-         }
-      })
-      .then((response) => response.text())
-      .then((data) => {
-        if(data[0].goals.length > 0){
-          this.updateGoals()
-          this.setState({
-            saved: true,
-            goalOne: data[0].goals.one_description,
-            goalTwo: data[0].goals.two_description,
-            goalThree: data[0].goals.three_description
-          })
-        } else {
-          this.setGoals()
-        }
-      })
-      .done();
-    })
-  }
-
   render(){
-    console.log(this.state.saved);
     if(this.state.event_id === null){
       return (
         <View style={styles.container}>
@@ -120,7 +86,7 @@ export default class SetGoals extends Component {
         </View>
       )
     } else {
-      if (!this.state.saved){
+      if (this.state.goals.length === 0){
         return (
           <View style={styles.container}>
             <Text style={styles.subtitle}> Event Mode </Text>
@@ -165,27 +131,27 @@ export default class SetGoals extends Component {
                 />
               </View>
 
-              <TouchableOpacity style={styles.buttonWrapper} onPress={this.getGoals.bind(this)}>
+              <TouchableOpacity style={styles.buttonWrapper} onPress={this.setGoals.bind(this)} >
                 <Text style={styles.buttonText}> Submit </Text>
               </TouchableOpacity>
             </View>
           </View>
         )
-      } else {
+      } else if (this.state.goals.length > 0) {
         return (
           <View style={styles.container}>
             <Text style={styles.subtitle}> Event Mode </Text>
             <View style={inlineStyles.footerWrapper}>
               <Text style={styles.text}>1.</Text>
-              <Text style={styles.text}> {this.state.goalOne} </Text>
+              <Text style={styles.text}> {this.state.goals[0].one_description} </Text>
             </View>
             <View style={inlineStyles.footerWrapper}>
               <Text style={styles.text}>2.</Text>
-              <Text style={styles.text}> {this.state.goalTwo} </Text>
+              <Text style={styles.text}> {this.state.goals[0].two_description} </Text>
             </View>
             <View style={inlineStyles.footerWrapper}>
               <Text style={styles.text}>3.</Text>
-              <Text style={styles.text}> {this.state.goalThree} </Text>
+              <Text style={styles.text}> {this.state.goals[0].three_description} </Text>
             </View>
           </View>
 

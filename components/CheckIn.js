@@ -16,12 +16,6 @@ export default class CheckIn extends Component {
     this.getEventId()
   }
 
-  getEventId(){
-    AsyncStorage.getItem('event_id').then((data) => {
-      this.setState({event_id: data})
-    })
-  }
-
   async saveItem(item, selectedValue) {
     try {
       await AsyncStorage.setItem(item, selectedValue);
@@ -58,6 +52,13 @@ export default class CheckIn extends Component {
       .done();
     })
   }
+
+  getEventId(){
+    AsyncStorage.getItem('event_id').then((data) => {
+      this.setState({event_id: data})
+    })
+  }
+
 
   render(){
     if(this.state.event_id === null){
