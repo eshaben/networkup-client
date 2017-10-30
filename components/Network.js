@@ -27,15 +27,14 @@ export default class CheckIn extends Component {
     if(this.state.event_id === null){
       return (
         <View style={styles.container}>
-          <Text style={styles.subtitle, styles.form}>You have not checked in yet. To set goals for an event, please check in first!</Text>
+          <Text style={styles.subtitle, styles.form}>You have not checked in yet. To enter event mode, please check in first!</Text>
         </View>
       )
     } else {
       return (
         <View style={styles.container}>
         <Text style={styles.subtitle}>Event Mode</Text>
-        <Text style={[styles.text, styles.form]}>You are currently checked into an event.
-        If you have not already set your goals, swipe left to do so!</Text>
+        <Text style={[styles.text, styles.form]}>GET OUT AND WORK IT! Good luck! You got this!</Text>
         </View>
       )
     }

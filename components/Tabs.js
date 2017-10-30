@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Tab, Tabs, ScrollableTab } from 'native-base';
 import CheckIn from './CheckIn.js'
 import SetGoals from './SetGoals.js'
+import Network from './Network.js'
 
 export default class HeaderTabs extends Component {
   render(){
@@ -14,6 +15,7 @@ export default class HeaderTabs extends Component {
             <SetGoals />
           </Tab>
           <Tab heading="Network">
+            <Network />
           </Tab>
           <Tab heading="Check Out">
           </Tab>
