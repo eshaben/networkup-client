@@ -45,6 +45,7 @@ export default class CheckIn extends Component {
           checked_in: true,
           checked_out: false,
           account_id: id,
+          goals: []
         })
       })
       .then((response) => response.text())

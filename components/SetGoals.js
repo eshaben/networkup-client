@@ -56,6 +56,33 @@ export default class SetGoals extends Component {
     })
   }
 
+  updateGoals() {
+    AsyncStorage.getItem('id_token').then((token) => {
+      fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
+        method: 'PUT',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+         },
+        body: JSON.stringify({
+          one_description: this.state.goalOne,
+          one_completed: false,
+          two_description: this.state.goalTwo,
+          two_completed: false,
+          three_description: this.state.goalThree,
+          three_completed: false
+        })
+      })
+      .then((response) => response.text())
+      .then((data) => {
+        Alert.alert('Goals Saved!')
+        this.setState({saved: true})
+      })
+      .done();
+    })
+  }
+
   getGoals(){
     AsyncStorage.getItem('id_token').then((token) => {
       fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
@@ -68,16 +95,16 @@ export default class SetGoals extends Component {
       })
       .then((response) => response.text())
       .then((data) => {
-        data = JSON.parse(data)
-        console.log(data[0].goals.length);
         if(data[0].goals.length > 0){
-          console.log("meow");
+          this.updateGoals()
           this.setState({
             saved: true,
             goalOne: data[0].goals.one_description,
             goalTwo: data[0].goals.two_description,
             goalThree: data[0].goals.three_description
           })
+        } else {
+          this.setGoals()
         }
       })
       .done();
@@ -138,7 +165,7 @@ export default class SetGoals extends Component {
                 />
               </View>
 
-              <TouchableOpacity style={styles.buttonWrapper} onPress={this.setGoals.bind(this)}>
+              <TouchableOpacity style={styles.buttonWrapper} onPress={this.getGoals.bind(this)}>
                 <Text style={styles.buttonText}> Submit </Text>
               </TouchableOpacity>
             </View>
