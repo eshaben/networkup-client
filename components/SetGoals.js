@@ -154,7 +154,6 @@ export default class SetGoals extends Component {
               <Text style={styles.text}> {this.state.goals[0].three_description} </Text>
             </View>
           </View>
-
         )
       }
     }
