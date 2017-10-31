@@ -16,8 +16,33 @@ export default class CheckOut extends Component {
   }
 
   componentDidMount(){
-    this.getEventId()
-    this.setCheckOutState()
+    AsyncStorage.getItem('event_id').then((data) => {
+      this.setState({event_id: data})
+    })
+    if (this.state.event_id !== null){
+
+      AsyncStorage.getItem('id_token').then((token) => {
+        let decodedToken = jwt_decode(token)
+        fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+           }
+        })
+        .then((response) => response.text())
+        .then((data) => {
+          data = JSON.parse(data)
+          if (data[0].checked_out){
+            this.setState({checked_out: true})
+          } else {
+            this.setState({checked_out: false})
+          }
+        })
+        .done();
+      })
+    }
   }
 
   getEventId(){
@@ -28,49 +53,54 @@ export default class CheckOut extends Component {
 
   checkOut(){
     this.setState({checked_out: true})
-    AsyncStorage.getItem('id_token').then((token) => {
-      let decodedToken = jwt_decode(token)
-      fetch('http://localhost:3000/events/checkout/' + this.state.event_id, {
-        method: 'PUT',
-        headers: {
-          'Authorization': 'Bearer ' + token,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-         },
-        body: JSON.stringify({
-          checked_out: true
+    if (this.state.event_id !== null){
+      AsyncStorage.getItem('id_token').then((token) => {
+        let decodedToken = jwt_decode(token)
+        fetch('http://localhost:3000/events/checkout/' + this.state.event_id, {
+          method: 'PUT',
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+           },
+          body: JSON.stringify({
+            checked_out: true
+          })
         })
+        .then((response) => response.text())
+        .then((data) => {
+          Alert.alert('You have been checked out successfully!')
+        })
+        .done();
       })
-      .then((response) => response.text())
-      .then((data) => {
-        Alert.alert('You have been checked out successfully!')
-      })
-      .done();
-    })
+    }
   }
 
   setCheckOutState(){
-    AsyncStorage.getItem('id_token').then((token) => {
-      let decodedToken = jwt_decode(token)
-      fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
-        method: 'GET',
-        headers: {
-          'Authorization': 'Bearer ' + token,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-         }
+    if (this.state.event_id !== null){
+
+      AsyncStorage.getItem('id_token').then((token) => {
+        let decodedToken = jwt_decode(token)
+        fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+           }
+        })
+        .then((response) => response.text())
+        .then((data) => {
+          data = JSON.parse(data)
+          if (data[0].checked_out){
+            this.setState({checked_out: true})
+          } else {
+            this.setState({checked_out: false})
+          }
+        })
+        .done();
       })
-      .then((response) => response.text())
-      .then((data) => {
-        data = JSON.parse(data)
-        if (data[0].checked_out){
-          this.setState({checked_out: true})
-        } else {
-          this.setState({checked_out: false})
-        }
-      })
-      .done();
-    })
+    }
   }
 
 

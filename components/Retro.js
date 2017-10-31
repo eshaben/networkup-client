@@ -25,12 +25,27 @@ export default class CheckOut extends Component {
   }
 
   componentDidMount(){
-    this.getEventId()
-    this.getCheckedOutDetails()
-  }
-
-  componentWillMount(){
-    this.getCheckedOutDetails()
+    AsyncStorage.getItem('event_id').then((data) => {
+      this.setState({event_id: data})
+    })
+    if (this.state.event_id !== null){
+      AsyncStorage.getItem('id_token').then((token) => {
+        fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+           }
+        })
+        .then((response) => response.text())
+        .then((data) => {
+          data = JSON.parse(data)
+          this.setState({checked_out: data[0].checked_out})
+        })
+        .done();
+      })
+    }
   }
 
   getEventId(){
@@ -40,55 +55,59 @@ export default class CheckOut extends Component {
   }
 
   getCheckedOutDetails(){
-    AsyncStorage.getItem('id_token').then((token) => {
-      fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
-        method: 'GET',
-        headers: {
-          'Authorization': 'Bearer ' + token,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-         }
+    if (this.state.event_id !== null){
+      AsyncStorage.getItem('id_token').then((token) => {
+        fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+           }
+        })
+        .then((response) => response.text())
+        .then((data) => {
+          data = JSON.parse(data)
+          this.setState({checked_out: data[0].checked_out})
+        })
+        .done();
       })
-      .then((response) => response.text())
-      .then((data) => {
-        data = JSON.parse(data)
-        this.setState({checked_out: data[0].checked_out})
-      })
-      .done();
-    })
+    }
   }
 
   saveRetro() {
-    AsyncStorage.getItem('id_token').then((token) => {
-      let decodedToken = jwt_decode(token)
-      fetch('http://localhost:3000/events/retros/' + this.state.event_id, {
-        method: 'PUT',
-        headers: {
-          'Authorization': 'Bearer ' + token,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-         },
-        body: JSON.stringify({
-          conversations: this.state.conversations,
-          meaningful_conversations: this.state.meaningful_conversations,
-          received_help: this.state.received_help,
-          provided_help: this.state.provided_help,
-          one_gain: this.state.one_gain,
-          cards_received: this.state.cards_received,
-          cards_given: this.state.cards_given,
-          connector_connections: this.state.connector_connections,
-          rating: this.state.rating,
+    if (this.state.event_id !== null){
+      AsyncStorage.getItem('id_token').then((token) => {
+        let decodedToken = jwt_decode(token)
+        fetch('http://localhost:3000/events/retros/' + this.state.event_id, {
+          method: 'PUT',
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+           },
+          body: JSON.stringify({
+            conversations: this.state.conversations,
+            meaningful_conversations: this.state.meaningful_conversations,
+            received_help: this.state.received_help,
+            provided_help: this.state.provided_help,
+            one_gain: this.state.one_gain,
+            cards_received: this.state.cards_received,
+            cards_given: this.state.cards_given,
+            connector_connections: this.state.connector_connections,
+            rating: this.state.rating,
+          })
         })
+        .then((response) => response.text())
+        .then((data) => {
+          Alert.alert('Retro Saved!')
+          data = JSON.parse(data);
+          this.removeItem('event_id')
+          Actions.HomePage()
+        })
+        .done();
       })
-      .then((response) => response.text())
-      .then((data) => {
-        Alert.alert('Retro Saved!')
-        data = JSON.parse(data);
-        this.removeItem('event_id')
-        Actions.HomePage()
-      })
-      .done();
-    })
+    }
   }
 
   async removeItem(item, selectedValue) {
@@ -101,7 +120,6 @@ export default class CheckOut extends Component {
 
 
   render(){
-    this.getEventId()
     if(this.state.event_id === null){
       return (
         <View style={styles.container}>

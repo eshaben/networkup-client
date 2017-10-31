@@ -13,7 +13,9 @@ export default class CheckIn extends Component {
   }
 
   componentDidMount(){
-    this.getEventId()
+    AsyncStorage.getItem('event_id').then((data) => {
+      this.setState({event_id: data})
+    })
   }
 
   async saveItem(item, selectedValue) {

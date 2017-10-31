@@ -6,8 +6,8 @@ import jwt_decode from 'jwt-decode';
 
 class Retro extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       converations: null,
       meaningful_conversations: null,
@@ -71,7 +71,9 @@ class Retro extends Component {
     }
   }
 
-  render() {
+  render(props) {
+    console.log(props.event_id);
+
     return (
       <ScrollView contentContainerStyle= {styles.contentContainer}>
       <View style={styles.container}>

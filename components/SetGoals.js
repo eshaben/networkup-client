@@ -20,34 +20,58 @@ export default class SetGoals extends Component {
   }
 
   componentDidMount(){
-    this.getEventId()
-    this.getGoalsData()
+    AsyncStorage.getItem('event_id').then((data) => {
+      if (data !== null || data !== undefined){
+        this.setState({event_id: data})
+      }
+    })
+      AsyncStorage.getItem('id_token').then((token) => {
+        fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+           }
+        })
+        .then((response) => response.text())
+        .then((data) => {
+          data = JSON.parse(data)
+          let eventGoals = data[0].goals
+          this.setState({goals: eventGoals})
+        })
+        .done();
+      })
   }
 
   getEventId(){
     AsyncStorage.getItem('event_id').then((data) => {
-      this.setState({event_id: data})
+      if (data !== null || data !== undefined){
+        this.setState({event_id: data})
+      }
     })
   }
 
   getGoalsData(){
-    AsyncStorage.getItem('id_token').then((token) => {
-      fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
-        method: 'GET',
-        headers: {
-          'Authorization': 'Bearer ' + token,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-         }
+    if (this.state.event_id !== null){
+      AsyncStorage.getItem('id_token').then((token) => {
+        fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+           }
+        })
+        .then((response) => response.text())
+        .then((data) => {
+          data = JSON.parse(data)
+          let eventGoals = data[0].goals
+          this.setState({goals: eventGoals})
+        })
+        .done();
       })
-      .then((response) => response.text())
-      .then((data) => {
-        data = JSON.parse(data)
-        let eventGoals = data[0].goals
-        this.setState({goals: eventGoals})
-      })
-      .done();
-    })
+    }
   }
 
   setGoals() {
@@ -73,6 +97,7 @@ export default class SetGoals extends Component {
         data = JSON.parse(data)
         Alert.alert('Goals Saved!')
         this.setState({saved: true})
+        this.getGoalsData()
       })
       .done();
     })
