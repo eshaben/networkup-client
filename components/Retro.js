@@ -28,7 +28,6 @@ export default class CheckOut extends Component {
     AsyncStorage.getItem('event_id').then((data) => {
       this.setState({event_id: data})
     })
-    if (this.state.event_id !== null){
       AsyncStorage.getItem('id_token').then((token) => {
         fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
           method: 'GET',
@@ -45,7 +44,6 @@ export default class CheckOut extends Component {
         })
         .done();
       })
-    }
   }
 
   getEventId(){
