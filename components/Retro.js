@@ -46,6 +46,14 @@ export default class CheckOut extends Component {
       })
   }
 
+  componentWillUpdate(){
+    AsyncStorage.getItem('event_id').then((data) => {
+      if ((data === null) || (data === undefined)) {
+        Actions.HomePage()
+      }
+    })
+  }
+
   getEventId(){
     AsyncStorage.getItem('event_id').then((data) => {
       this.setState({event_id: data})
@@ -75,7 +83,9 @@ export default class CheckOut extends Component {
 
   saveRetro() {
     if (this.state.event_id !== null){
+      console.log("before the fetch");
       AsyncStorage.getItem('id_token').then((token) => {
+        console.log(token);
         let decodedToken = jwt_decode(token)
         fetch('http://localhost:3000/events/retros/' + this.state.event_id, {
           method: 'PUT',
@@ -98,17 +108,24 @@ export default class CheckOut extends Component {
         })
         .then((response) => response.text())
         .then((data) => {
+          console.log("after the fetch");
           Alert.alert('Retro Saved!')
           data = JSON.parse(data);
+          AsyncStorage.getItem('event_id').then((data) => {
+            this.setState({event_id: data})
+            console.log(data);
+          })
           this.removeItem('event_id')
-          Actions.HomePage()
+          AsyncStorage.getItem('event_id').then((data) => {
+            console.log(data);
+          })
         })
-        .done();
+        .done(Actions.HomePage());
       })
     }
   }
 
-  async removeItem(item, selectedValue) {
+  async removeItem(item) {
     try {
       await AsyncStorage.removeItem(item);
     } catch (error) {

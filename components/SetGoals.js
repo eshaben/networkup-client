@@ -19,6 +19,14 @@ export default class SetGoals extends Component {
     };
   }
 
+  componentWillUpdate(){
+    AsyncStorage.getItem('event_id').then((data) => {
+      if (data !== null || data !== undefined){
+        this.setState({event_id: data})
+      }
+    })
+  }
+
   componentDidMount(){
     AsyncStorage.getItem('event_id').then((data) => {
       if (data !== null || data !== undefined){

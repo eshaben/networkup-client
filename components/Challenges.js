@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {Alert, Image, Text, TouchableOpacity, View, AsyncStorage, ListView} from 'react-native';
+import {Alert, TouchableHighlight, Image, Container, Text, TouchableOpacity, View, AsyncStorage, ListView, Button} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import styles from '../routes/styles';
-import { Card, ListItem, Button, Badge } from 'react-native-elements';
+import { Thumbnail } from 'native-base';
 import jwt_decode from 'jwt-decode';
 
 class Challenges extends Component {
@@ -11,7 +11,8 @@ class Challenges extends Component {
     super();
     this.state = {
       data: [],
-      userData: null
+      userData: null,
+      input: ''
     };
   }
 
@@ -52,6 +53,10 @@ class Challenges extends Component {
     })
   }
 
+  abcd() {
+    Alert.alert("yoooo")
+    console.log("hiii");
+  }
 
   render() {
     return (
@@ -60,15 +65,11 @@ class Challenges extends Component {
         <View style={styles.form}>
          {this.state.data.map(function(list, l){
            return (
-             <Card key={l}>
-               <Text style={styles.text}>
-                {list.description}
-               </Text>
-               <Badge
-                value={list.points + ' points'}
-                textStyle={{ color: 'white'}}
-              />
-             </Card>
+             <View key={l}>
+                <TouchableOpacity onPress={ this.abcd }>
+                  <Thumbnail medium source={require('../assets/lock.png')}/>
+                </TouchableOpacity>
+              </View>
            )
          })}
          </View>

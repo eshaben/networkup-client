@@ -10,7 +10,7 @@ export default class FooterTabs extends Component {
     return (
         <Footer>
           <FooterTab>
-            <Button active>
+            <Button>
               <MaterialIcons style={{fontSize: 25}}  name="event-available" onPress={Actions.HomePage}/>
             </Button>
             <Button>

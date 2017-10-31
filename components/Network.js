@@ -25,32 +25,31 @@ export default class CheckIn extends Component {
     AsyncStorage.getItem('event_id').then((data) => {
       this.setState({event_id: data})
     })
-      AsyncStorage.getItem('id_token').then((token) => {
-        fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
-          method: 'GET',
-          headers: {
-            'Authorization': 'Bearer ' + token,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-           }
-        })
-        .then((response) => response.text())
-        .then((data) => {
-          data = JSON.parse(data)
-          let eventGoals = data[0].goals
-          if (eventGoals.length > 0){
-            this.setState({goals: eventGoals})
-            this.setState({one_completed: data[0].goals[0].one_completed})
-            this.setState({two_completed: eventGoals[0].two_completed})
-            this.setState({three_completed: eventGoals[0].three_completed})
-            this.setState({one_description: eventGoals[0].one_description})
-            this.setState({two_description: eventGoals[0].two_description})
-            this.setState({three_description: eventGoals[0].three_description})
-          }
-        })
-        .done();
+    AsyncStorage.getItem('id_token').then((token) => {
+      fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+         }
       })
-    
+      .then((response) => response.text())
+      .then((data) => {
+        data = JSON.parse(data)
+        let eventGoals = data[0].goals
+        if (eventGoals.length > 0){
+          this.setState({goals: eventGoals})
+          this.setState({one_completed: data[0].goals[0].one_completed})
+          this.setState({two_completed: eventGoals[0].two_completed})
+          this.setState({three_completed: eventGoals[0].three_completed})
+          this.setState({one_description: eventGoals[0].one_description})
+          this.setState({two_description: eventGoals[0].two_description})
+          this.setState({three_description: eventGoals[0].three_description})
+        }
+      })
+      .done();
+    })
   }
 
   getEventId(){

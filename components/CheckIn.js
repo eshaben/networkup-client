@@ -12,6 +12,12 @@ export default class CheckIn extends Component {
     this.state = {event_id: null };
   }
 
+  componentWillUpdate(){
+    AsyncStorage.getItem('event_id').then((data) => {
+      this.setState({event_id: data})
+    })
+  }
+
   componentDidMount(){
     AsyncStorage.getItem('event_id').then((data) => {
       this.setState({event_id: data})
