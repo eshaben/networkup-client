@@ -12,7 +12,6 @@ class Challenges extends Component {
     this.state = {
       data: [],
       userData: null,
-      input: ''
     };
   }
 
@@ -53,9 +52,26 @@ class Challenges extends Component {
     })
   }
 
-  abcd() {
+  getChallengesById(id) {
+    AsyncStorage.getItem('id_token').then((token) => {
+      fetch('http://localhost:3000/challenges/' + id, {
+        method: 'GET',
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+      .then((response) => response.text())
+      .then((data) => {
+        data = JSON.parse(data)
+        let description = data[0].description
+        let points = data[0].points
+        Alert.alert(description + ' Points: ' + points)
+      })
+      .done();
+    })
+  }
+
+  abcd(id) {
     Alert.alert("yoooo")
-    console.log("hiii");
+    console.log(id);
   }
 
   render() {
@@ -63,11 +79,13 @@ class Challenges extends Component {
       <View style={styles.container}>
         <Text style={styles.subtitle}> Challenges </Text>
         <View style={styles.form}>
-         {this.state.data.map(function(list, l){
+         {this.state.data.map((list, l) =>{
            return (
              <View key={l}>
-                <TouchableOpacity onPress={ this.abcd }>
-                  <Thumbnail medium source={require('../assets/lock.png')}/>
+              <TouchableOpacity onPress={ ()=> this.getChallengesById(list.id)}>
+                  <View>
+                    <Thumbnail medium source={require('../assets/lock.png')}/>
+                  </View>
                 </TouchableOpacity>
               </View>
            )
