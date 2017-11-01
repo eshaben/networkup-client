@@ -12,6 +12,7 @@ class Challenges extends Component {
     this.state = {
       data: [],
       userData: null,
+      challenges: [],
       challenge1: false,
       challenge2: false,
       challenge3: false,
@@ -56,7 +57,7 @@ class Challenges extends Component {
   }
 
   getUsersChallenges() {
-    let challengeIds = []
+    let completedChallenges = []
     AsyncStorage.getItem('id_token').then((token) => {
       let decodedToken = jwt_decode(token)
       let id = decodedToken.id
@@ -67,12 +68,11 @@ class Challenges extends Component {
       .then((response) => response.text())
       .then((data) => {
         data = JSON.parse(data)
-        data.forEach(function(){
-          let challenge = data[0].challenge_id
-          console.log(challenge);
-          challengeIds.push(challenge)
-        })
-        this.setState({userData: data})
+        for(var i=0; i<data.length; i++){
+          completedChallenges.push(data[i].id)
+        }
+        console.log(completedChallenges);
+        this.setState({challenges: completedChallenges})
       })
       .done();
     })
@@ -95,7 +95,20 @@ class Challenges extends Component {
     })
   }
 
+  lockOrTrophy(list){
+    let challengesState = this.state.challenges
+    for(var i=0; i<challengesState.length; i++){
+      if (list.id === challengesState[i]){
+        return require('../assets/star_trophy.png')
+      } else {
+        return require('../assets/lock.png')
+      }
+    }
+  }
+
   render() {
+
+
     return (
       <ScrollView style={inStyles.background}>
         <View style={styles.container}>
@@ -106,7 +119,7 @@ class Challenges extends Component {
                <View style={inStyles.listItem} key={l}>
                 <TouchableOpacity onPress={ ()=> this.getChallengesById(list.id)}>
                   <View>
-                    <Thumbnail medium source={require('../assets/lock.png')}/>
+                    <Thumbnail medium source={this.lockOrTrophy(list)}/>
                   </View>
                 </TouchableOpacity>
               </View>

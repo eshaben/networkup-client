@@ -141,9 +141,8 @@ class MyStats extends Component {
              {this.state.listOfBadges.map((list, l) =>{
                return (
                  <View style={inStyles.listItem} key={l}>
-                    <Text style={styles.text}> {list.title} </Text>
                     <Image
-                     style={{width: 100, height: 100}}
+                     style={{width: 110, height: 110}}
                      source={{uri: list.images}} />
                 </View>
                )
