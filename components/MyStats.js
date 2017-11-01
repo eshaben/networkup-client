@@ -134,32 +134,33 @@ class MyStats extends Component {
       <ScrollView>
         <View style={styles.container}>
           <Text style={styles.subtitle}> My Stats </Text>
-          <Text style={styles.text}> {events} </Text>
-          <View>
+
+          <Card title="Stats">
+            <Text style={styles.text}> {events} </Text>
             <Text style={styles.text}> Points: {this.state.points} </Text>
-            <View style={inStyles.list}>
+            <Text style={styles.text}> Cards Given: {this.state.cards_given} </Text>
+            <Text style={styles.text}> Cards Received: {this.state.cards_received} </Text>
+            <Text style={styles.text}> Conversations: {this.state.conversations} </Text>
+            <Text style={styles.text}> Meaningful Converations: {this.state.meaningful_conversations} </Text>
+            <Text style={styles.text}> Introductions between connections : {this.state.connector_connections} </Text>
+            <Text style={styles.text}> You received help at this many events: {this.state.received_help} </Text>
+            <Text style={styles.text}> You provided help at this many events: {this.state.provided_help} </Text>
+            <Text style={styles.text}> Average overall rating: {this.state.rating} </Text>
+
+          </Card>
+
+          <View>
+            <Card containerStyle={{width: 340, flexDirection:'row', flexWrap: 'wrap', justifyContent: 'center'}} title = "Badges">
              {this.state.listOfBadges.map((list, l) =>{
                return (
-                 <View style={inStyles.listItem} key={l}>
+                 <View style={{flexDirection: 'row'}} key={l}>
                     <Image
-                     style={{width: 110, height: 110}}
+                     style={{width: 100, height: 100}}
                      source={{uri: list.images}} />
                 </View>
                )
              })}
-             </View>
-          </View>
-          <Text style={styles.text}> Cards Given: {this.state.cards_given} </Text>
-          <Text style={styles.text}> Cards Received: {this.state.cards_received} </Text>
-          <Text style={styles.text}> Conversations: {this.state.conversations} </Text>
-          <Text style={styles.text}> Meaningful Converations: {this.state.meaningful_conversations} </Text>
-          <Text style={styles.text}> Introductions between connections : {this.state.connector_connections} </Text>
-          <Text style={styles.text}> You received help at this many events: {this.state.received_help} </Text>
-          <Text style={styles.text}> You provided help at this many events: {this.state.provided_help} </Text>
-          <Text style={styles.text}> Average overall rating: {this.state.rating} </Text>
-
-          <View>
-
+            </Card>
           </View>
         </View>
       </ScrollView>

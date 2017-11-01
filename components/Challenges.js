@@ -90,6 +90,7 @@ class Challenges extends Component {
         let description = data[0].description
         let points = data[0].points
         Alert.alert('Challenge: ' + description + '. Points: ' + points)
+
       })
       .done();
     })

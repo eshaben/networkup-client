@@ -105,7 +105,7 @@ export default class CheckOut extends Component {
     if(this.state.event_id === null){
       return (
         <View style={styles.container}>
-          <Text style={styles.subtitle, styles.form}>You have not checked in yet. To enter event mode, please check in first!</Text>
+          <Text style={[styles.subtitle, styles.form]}>You have not checked in yet. To enter event mode, please check in first!</Text>
         </View>
       )
     } else {

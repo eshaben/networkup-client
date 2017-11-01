@@ -115,7 +115,7 @@ export default class SetGoals extends Component {
     if(this.state.event_id === null){
       return (
         <View style={styles.container}>
-        <Text style={styles.subtitle, styles.form}>You have not checked in yet. To set goals for an event, please check in first!</Text>
+        <Text style={[styles.subtitle, styles.form]}>You have not checked in yet. To set goals for an event, please check in first!</Text>
         </View>
       )
     } else {

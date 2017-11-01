@@ -46,14 +46,6 @@ export default class CheckOut extends Component {
       })
   }
 
-  componentWillUpdate(){
-    AsyncStorage.getItem('event_id').then((data) => {
-      if ((data === null) || (data === undefined)) {
-        Actions.HomePage()
-      }
-    })
-  }
-
   getEventId(){
     AsyncStorage.getItem('event_id').then((data) => {
       this.setState({event_id: data})
@@ -138,7 +130,7 @@ export default class CheckOut extends Component {
     if(this.state.event_id === null){
       return (
         <View style={styles.container}>
-          <Text style={styles.subtitle, styles.form}>You have not checked in yet. To enter event mode, please check in first!</Text>
+          <Text style={[styles.subtitle, styles.form]}>You have not checked in yet. To enter event mode, please check in first!</Text>
         </View>
       )
     } else {
@@ -146,9 +138,9 @@ export default class CheckOut extends Component {
         return (
           <ScrollView contentContainerStyle= {styles.contentContainer}>
           <View style={styles.container}>
-            <Text style={styles.title}> Retro</Text>
+            <Text style={styles.subtitle}> Retro</Text>
             <View style={styles.form}>
-              <Text style={styles.text}> How many conversations did you have approximately? </Text>
+              <Text style={styles.text}>Number of conversations, roughly: </Text>
               <TextInput
                 editable={true}
                 onChangeText={(conversations) => this.setState({conversations})}
@@ -159,7 +151,7 @@ export default class CheckOut extends Component {
                 style={styles.inputText}
                 value={this.state.conversations}
               />
-              <Text style={styles.text}> How many of those conversations were meaningful to you? </Text>
+              <Text style={styles.text}> Of which, how many were meaningful? </Text>
               <TextInput
                 editable={true}
                 onChangeText={(meaningful_conversations) => this.setState({meaningful_conversations})}
@@ -190,7 +182,7 @@ export default class CheckOut extends Component {
                 style={styles.inputText}
                 value={this.state.provided_help}
               />
-              <Text style={styles.text}> If there was one thing that you gained from this event, what was it? </Text>
+              <Text style={styles.text}> One gain from this event: </Text>
               <TextInput
                 editable={true}
                 onChangeText={(one_gain) => this.setState({one_gain})}
@@ -200,7 +192,7 @@ export default class CheckOut extends Component {
                 style={styles.inputText}
                 value={this.state.one_gain}
               />
-              <Text style={styles.text}> How many business cards did you receive? </Text>
+              <Text style={styles.text}> Number of business cards received: </Text>
               <TextInput
                 editable={true}
                 onChangeText={(cards_received) => this.setState({cards_received})}
@@ -211,7 +203,7 @@ export default class CheckOut extends Component {
                 style={styles.inputText}
                 value={this.state.cards_received}
               />
-              <Text style={styles.text}> How many business cards of yours did you give out? </Text>
+              <Text style={styles.text}> Number of business cards given out: </Text>
               <TextInput
                 editable={true}
                 onChangeText={(cards_given) => this.setState({cards_given})}
@@ -232,7 +224,7 @@ export default class CheckOut extends Component {
                 style={styles.inputText}
                 value={this.state.connector_connections}
               />
-              <Text style={styles.text}> On a scale of 1-10, 10 being the best, how do you feel after attending this event? </Text>
+              <Text style={styles.text}> Scale of 1-10: overall rating of the event: </Text>
               <TextInput
                 editable={true}
                 onChangeText={(rating) => this.setState({rating})}
@@ -258,7 +250,7 @@ export default class CheckOut extends Component {
       } else {
         return (
           <View style={styles.container}>
-            <Text style={styles.subtitle, styles.form}>You have not checked out yet. To submit a retro please check out of the event first!</Text>
+            <Text style={[styles.subtitle, styles.form]}>You have not checked out yet. To submit a retro please check out of the event first!</Text>
           </View>
         )
       }

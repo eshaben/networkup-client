@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import {Alert, Image, Text, TouchableOpacity, View, AsyncStorage, StyleSheet} from 'react-native';
 import {Actions} from 'react-native-router-flux';
+import {Button} from 'native-base'
 import styles from '../routes/styles';
 import jwt_decode from 'jwt-decode';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+
 
 
 export default class CheckIn extends Component {
@@ -50,6 +53,10 @@ export default class CheckIn extends Component {
       })
       .done();
     })
+  }
+
+  componentWillMount(){
+    this.getGoalsData()
   }
 
   getEventId(){
@@ -154,14 +161,15 @@ export default class CheckIn extends Component {
     if(this.state.event_id === null){
       return (
         <View style={styles.container}>
-          <Text style={styles.subtitle, styles.form}>You have not checked in yet. To enter event mode, please check in first!</Text>
+          <Text style={[styles.subtitle, styles.form]}>You have not checked in yet. To enter event mode, please check in first!</Text>
         </View>
       )
     } else {
       if (this.state.goals.length === 0){
         return (
           <View style={styles.container}>
-            <Text style={styles.subtitle, styles.form}>You have not yet entered any goals for this event. Swipe right to set your goals for the event!</Text>
+            <Text style={[styles.subtitle, styles.form]}>Event Mode</Text>
+            <Text style={[styles.text, styles.form]}>You have not yet entered any goals for this event. Swipe right to set your goals for the event!</Text>
           </View>
         )
       } else {
@@ -169,32 +177,46 @@ export default class CheckIn extends Component {
           <View style={styles.container}>
             <Text style={styles.subtitle}>Event Mode</Text>
             <Text style={[styles.text, styles.form]}>You have successfully checked in
-            and set your goals for the event! Good luck! You got this! Once you accomplish a goal mark it as completed! </Text>
+            and set your goals for the event! You got this! Once you accomplish a goal mark it as complete. </Text>
 
             <View style={inlineStyles.footerWrapper}>
               <Text style={styles.text}>1.</Text>
               <Text style={styles.text}> {this.state.one_description} </Text>
+              </View>
+            <View style = {inlineStyles.buttonWrapper}>
+            <Button iconLeft bordered success onPress={this.confirmGoalOne.bind(this)}>
+              <MaterialIcons style={{fontSize: 18}} name="check" />
+              <Text >{completedOne} </Text>
+            </Button>
             </View>
-            <TouchableOpacity style={inlineStyles.buttonWrapperSmall}  onPress={this.confirmGoalOne.bind(this)}>
-              <Text style={inlineStyles.buttonTextSmall}>{completedOne} </Text>
-            </TouchableOpacity>
+
             <View style={inlineStyles.footerWrapper}>
               <Text style={styles.text}>2.</Text>
               <Text style={styles.text}> {this.state.two_description} </Text>
             </View>
-            <TouchableOpacity style={inlineStyles.buttonWrapperSmall} onPress={this.confirmGoalTwo.bind(this)} >
-              <Text style={inlineStyles.buttonTextSmall}>{completedTwo} </Text>
-            </TouchableOpacity>
+            <View style = {inlineStyles.buttonWrapper}>
+              <Button iconLeft bordered success onPress={this.confirmGoalTwo.bind(this)} >
+                <MaterialIcons style={{fontSize: 18}} name="check" />
+                <Text>{completedTwo} </Text>
+              </Button>
+            </View>
+
             <View style={inlineStyles.footerWrapper}>
               <Text style={styles.text}>3.</Text>
               <Text style={styles.text}> {this.state.three_description} </Text>
             </View>
-            <TouchableOpacity style={inlineStyles.buttonWrapperSmall} onPress={this.confirmGoalThree.bind(this)} >
-              <Text style={inlineStyles.buttonTextSmall}>{completedThree} </Text>
-            </TouchableOpacity>
+            <View style={inlineStyles.footerWrapper}>
+              <Button iconLeft bordered success onPress={this.confirmGoalThree.bind(this)} >
+                <MaterialIcons style={{fontSize: 18}} name="check" />
+                <Text>{completedThree} </Text>
+              </Button>
+            </View>
+
+            <View style={inlineStyles.seperator}>
             <TouchableOpacity style={styles.buttonWrapper} onPress={this.sendGoalCompletion.bind(this)}>
               <Text style={styles.buttonText}> Done </Text>
             </TouchableOpacity>
+            </View>
           </View>
         )
       }
@@ -208,13 +230,22 @@ const inlineStyles = StyleSheet.create({
     alignItems: 'flex-start',
     flexDirection: 'row'
   },
+  buttonWrapper: {
+    marginTop: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   buttonTextSmall: {
     fontSize: 14,
-    textAlign: 'center'
+    textAlign: 'center',
+    margin: 5
   },
   buttonWrapperSmall: {
     backgroundColor:'#D3D3D3',
     marginBottom: 10,
     width: 200
+  },
+  seperator: {
+    marginTop: 15
   }
 })
