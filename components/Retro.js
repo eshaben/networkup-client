@@ -111,6 +111,7 @@ export default class CheckOut extends Component {
           AsyncStorage.getItem('event_id').then((data) => {
             console.log(data);
           })
+          Actions.HomePage()
         })
         .done(Actions.HomePage());
       })

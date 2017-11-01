@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, TextInput, TouchableOpacity, View, AsyncStorage, Alert} from 'react-native';
+import {Text, Image, TextInput, TouchableOpacity, View, AsyncStorage, Alert} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import styles from './styles';
 
@@ -61,8 +61,12 @@ class Authentication extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}> NetworkUp </Text>
-
+        <View style={{marginBottom: 80}}>
+          <Image
+          source={require('../assets/NetworkUp.png')}
+          style={{width: 350, height:70}}
+          />
+        </View>
         <View style={styles.form}>
           <TextInput
             editable={true}

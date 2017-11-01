@@ -72,6 +72,13 @@ export default class CheckIn extends Component {
     if(this.state.event_id === null){
       return (
         <View style={styles.container}>
+        <View style={{marginBottom: 80}}>
+          <Image
+          source={require('../assets/logo.png')}
+          style={{width: 350, height:70}}
+          />
+          </View>
+
           <Text style={styles.subtitle}> Are you ready to check into an event? </Text>
           <TouchableOpacity style={styles.buttonWrapper} onPress={this.checkIn.bind(this)}>
             <Text style={styles.buttonText}> Check In </Text>
@@ -81,6 +88,12 @@ export default class CheckIn extends Component {
     } else {
       return (
         <View style={styles.container}>
+          <View style={{marginBottom: 40}}>
+            <Image
+            source={require('../assets/logo.png')}
+            style={{width: 350, height:70}}
+            />
+          </View>
         <Text style={styles.subtitle}>Event Mode</Text>
         <Text style={[styles.text, styles.form]}>You are currently checked into an event.
         If you have not already set your goals, swipe left to do so!</Text>
