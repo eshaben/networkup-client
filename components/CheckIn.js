@@ -76,9 +76,6 @@ export default class CheckIn extends Component {
           <TouchableOpacity style={styles.buttonWrapper} onPress={this.checkIn.bind(this)}>
             <Text style={styles.buttonText}> Check In </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.HomePage}>
-            <Text style={styles.buttonText}> Nevermind </Text>
-          </TouchableOpacity>
         </View>
       )
     } else {

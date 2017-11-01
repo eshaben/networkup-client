@@ -12,6 +12,26 @@ class Challenges extends Component {
     this.state = {
       data: [],
       userData: null,
+      challenge1: false,
+      challenge2: false,
+      challenge3: false,
+      challenge4: false,
+      challenge5: false,
+      challenge6: false,
+      challenge7: false,
+      challenge8: false,
+      challenge9: false,
+      challenge10: false,
+      challenge11: false,
+      challenge12: false,
+      challenge13: false,
+      challenge14: false,
+      challenge15: false,
+      challenge16: false,
+      challenge17: false,
+      challenge18: false,
+      challenge19: false,
+      challenge20: false
     };
   }
 
@@ -36,6 +56,7 @@ class Challenges extends Component {
   }
 
   getUsersChallenges() {
+    let challengeIds = []
     AsyncStorage.getItem('id_token').then((token) => {
       let decodedToken = jwt_decode(token)
       let id = decodedToken.id
@@ -46,6 +67,11 @@ class Challenges extends Component {
       .then((response) => response.text())
       .then((data) => {
         data = JSON.parse(data)
+        data.forEach(function(){
+          let challenge = data[0].challenge_id
+          console.log(challenge);
+          challengeIds.push(challenge)
+        })
         this.setState({userData: data})
       })
       .done();
@@ -71,7 +97,7 @@ class Challenges extends Component {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView style={inStyles.background}>
         <View style={styles.container}>
           <Text style={styles.subtitle}> Challenges </Text>
           <View style={inStyles.list}>
@@ -104,5 +130,8 @@ var inStyles = StyleSheet.create({
   },
   listItem: {
     margin: 10
+  },
+  background: {
+    backgroundColor: 'white'
   }
 })
