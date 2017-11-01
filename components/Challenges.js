@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Alert, TouchableHighlight, Image, Container, Text, TouchableOpacity, View, AsyncStorage, ListView, Button} from 'react-native';
+import {Alert, Image, Text, StyleSheet, TouchableOpacity, View, AsyncStorage, ScrollView} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import styles from '../routes/styles';
 import { Thumbnail } from 'native-base';
@@ -63,37 +63,46 @@ class Challenges extends Component {
         data = JSON.parse(data)
         let description = data[0].description
         let points = data[0].points
-        Alert.alert(description + ' Points: ' + points)
+        Alert.alert('Challenge: ' + description + '. Points: ' + points)
       })
       .done();
     })
   }
 
-  abcd(id) {
-    Alert.alert("yoooo")
-    console.log(id);
-  }
-
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.subtitle}> Challenges </Text>
-        <View style={styles.form}>
-         {this.state.data.map((list, l) =>{
-           return (
-             <View key={l}>
-              <TouchableOpacity onPress={ ()=> this.getChallengesById(list.id)}>
+      <ScrollView>
+        <View style={styles.container}>
+          <Text style={styles.subtitle}> Challenges </Text>
+          <View style={inStyles.list}>
+           {this.state.data.map((list, l) =>{
+             return (
+               <View style={inStyles.listItem} key={l}>
+                <TouchableOpacity onPress={ ()=> this.getChallengesById(list.id)}>
                   <View>
                     <Thumbnail medium source={require('../assets/lock.png')}/>
                   </View>
                 </TouchableOpacity>
               </View>
-           )
-         })}
-         </View>
-      </View>
+             )
+           })}
+           </View>
+        </View>
+      </ScrollView>
     );
   }
 }
 
 export default Challenges;
+
+var inStyles = StyleSheet.create({
+  list: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    margin: 5,
+    justifyContent: 'center'
+  },
+  listItem: {
+    margin: 10
+  }
+})
