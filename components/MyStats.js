@@ -3,9 +3,11 @@ import {Alert, Image, StyleSheet, Text, TouchableOpacity, View, AsyncStorage, Sc
 import {Actions} from 'react-native-router-flux';
 import styles from '../routes/styles';
 import {Thumbnail} from 'native-base'
-import { Card, ListItem, Button, Badge } from 'react-native-elements';
+import { Card, ListItem, Button, Rating } from 'react-native-elements';
 import jwt_decode from 'jwt-decode';
-import Radar from 'react-d3-radar'
+import {
+  VictoryAxis, VictoryPie, VictoryPolarAxis, VictoryArea, VictoryBar, VictoryChart, VictoryStack, VictoryTheme }
+from "victory-native";
 
 class MyStats extends Component {
 
@@ -122,10 +124,10 @@ class MyStats extends Component {
 
   render() {
     let events = ''
-    let averageRating = ''
+    let averageRating = 6
 
     if (this.state.data.length > 0){
-      events = `You have attended ${this.state.data.length} events`
+      events = `Total events: ${this.state.data.length}`
     } else {
       events = 'You have not attended any events yet! Once you start attending events and reporting back we can provide you with some insights!'
     }
@@ -135,19 +137,14 @@ class MyStats extends Component {
         <View style={styles.container}>
           <Text style={styles.subtitle}> My Stats </Text>
 
-          <Card title="Stats">
+          <View style={{width:370}}>
+          <Card title="Quick Overview">
             <Text style={styles.text}> {events} </Text>
             <Text style={styles.text}> Points: {this.state.points} </Text>
-            <Text style={styles.text}> Cards Given: {this.state.cards_given} </Text>
-            <Text style={styles.text}> Cards Received: {this.state.cards_received} </Text>
-            <Text style={styles.text}> Conversations: {this.state.conversations} </Text>
-            <Text style={styles.text}> Meaningful Converations: {this.state.meaningful_conversations} </Text>
-            <Text style={styles.text}> Introductions between connections : {this.state.connector_connections} </Text>
-            <Text style={styles.text}> You received help at this many events: {this.state.received_help} </Text>
-            <Text style={styles.text}> You provided help at this many events: {this.state.provided_help} </Text>
             <Text style={styles.text}> Average overall rating: {this.state.rating} </Text>
 
           </Card>
+          </View>
 
           <View>
             <Card containerStyle={{width: 340, flexDirection:'row', flexWrap: 'wrap', justifyContent: 'center'}} title = "Badges">
@@ -155,13 +152,59 @@ class MyStats extends Component {
                return (
                  <View style={{flexDirection: 'row'}} key={l}>
                     <Image
-                     style={{width: 100, height: 100}}
+                     style={{width: 100, height: 100, flexDirection: 'row'}}
                      source={{uri: list.images}} />
                 </View>
                )
              })}
             </Card>
           </View>
+
+          <Card containerStyle={{width: 340, flexDirection:'row', flexWrap: 'wrap', justifyContent: 'center'}} title="Conversations">
+            <View style={{marginLeft: 30}} >
+              <VictoryPie
+                innerRadius={100}
+                height={200}
+                colorScale={["tomato", "orange", "gold", "cyan", "navy" ]}
+                data={[
+                  {x: 1, y: this.state.meaningful_conversations, label: "Meaningful: " + this.state.meaningful_conversations},
+                  {x: 2, y: this.state.conversations, label: "Total Converations: " + this.state.conversations}
+                ]}
+              />
+            </View>
+          </Card>
+
+          <Card containerStyle={{width: 340, flexDirection:'row', flexWrap: 'wrap', justifyContent: 'center'}} title="Business Cards">
+            <Text style={styles.text}> Cards Received: {this.state.cards_received} </Text>
+            <Text style={styles.text}> Cards Given: {this.state.cards_given} </Text>
+          </Card>
+
+          <Card containerStyle={{width: 340, flexDirection:'row', flexWrap: 'wrap', justifyContent: 'center'}} title="Received Help">
+            <View style={{marginRight: 5}} >
+              <VictoryPie
+                innerRadius={100}
+                height={200}
+                colorScale={["gold", "lime", "cyan", "navy" ]}
+                data={[
+                  {x: 1, y: this.state.received_help, label: "Received Help: " + this.state.received_help},
+                  {x: 2, y: this.state.data.length, label: "Total Events: " + this.state.events}
+                ]}
+              />
+            </View>
+          </Card>
+          <Card containerStyle={{width: 340, flexDirection:'row', flexWrap: 'wrap', justifyContent: 'center'}} title="Provided Help">
+            <View style={{marginRight: 5}} >
+              <VictoryPie
+                innerRadius={100}
+                height={200}
+                colorScale={["cyan", "pink" ]}
+                data={[
+                  {x: 1, y: this.state.provided_help, label: "Provided Help: " + this.state.provided_help},
+                  {x: 2, y: this.state.data.length, label: "Total Events: " + this.state.events}
+                ]}
+              />
+            </View>
+          </Card>
         </View>
       </ScrollView>
     );

@@ -32,11 +32,14 @@
     "react-native-pathjs-charts": "0.0.31",
     "react-native-popup-dialog": "^0.9.38",
     "react-native-router-flux": "^4.0.0-beta.22",
+    "react-native-svg": "^5.4.2",
     "react-native-tooltip": "^5.0.0",
     "react-native-vector-icons": "^4.4.2",
     "react-router": "^4.2.0",
     "react-tap-event-plugin": "^3.0.2",
     "validator": "^9.1.0",
+    "victory": "^0.24.0",
+    "victory-native": "^0.15.0",
     "watchman": "^0.1.8"
   }
 }
