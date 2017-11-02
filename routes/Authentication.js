@@ -66,6 +66,8 @@ class Authentication extends Component {
           source={require('../assets/NetworkUp.png')}
           style={{width: 350, height:70}}
           />
+          <Text style={{textAlign: 'center', fontSize: 16}}> Level up your networking skills </Text>
+
         </View>
         <View style={styles.form}>
           <TextInput

@@ -4,15 +4,16 @@ export default styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     padding: 10,
+    color: 'white',
     textAlign: 'center'
   },
   buttonWrapper: {
-		backgroundColor:'#D3D3D3',
+		backgroundColor:'#ffa43e',
 		marginBottom: 10,
     width: 300
   },
   buttonInLine:{
-    backgroundColor:'#D3D3D3',
+    backgroundColor:'#ffa43e',
     marginBottom: 10,
     width: 150
   },
