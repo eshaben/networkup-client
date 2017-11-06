@@ -11,12 +11,13 @@ This is a mobile application made with React Native. To open this with a simulat
 
 
 ## Technologies
-* HTML
-* JavaScript
-* jQuery/AJAX
-* Materialize
-* SASS/SCSS 
-* Cannabis Reports API
+* React Native
+* Node.js
+* Express
+* Knex
+* PSQL
+* Objection.js
+* Victory Charts
 
 ## Video
 https://www.youtube.com/watch?v=gWqELWy5ZaM 
