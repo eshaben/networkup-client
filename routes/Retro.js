@@ -33,7 +33,7 @@ class Retro extends Component {
     console.log(this.state.event_id);
     AsyncStorage.getItem('id_token').then((token) => {
       let decodedToken = jwt_decode(token)
-      fetch('http://localhost:3000/events/retros/' + this.state.event_id, {
+      fetch('https://boiling-mesa-67164.herokuapp.com/events/retros/' + this.state.event_id, {
         method: 'PUT',
         headers: {
           'Authorization': 'Bearer ' + token,

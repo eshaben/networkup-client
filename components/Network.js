@@ -29,7 +29,7 @@ export default class CheckIn extends Component {
       this.setState({event_id: data})
     })
     AsyncStorage.getItem('id_token').then((token) => {
-      fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
+      fetch('https://boiling-mesa-67164.herokuapp.com/events/goals/' + this.state.event_id, {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer ' + token,
@@ -68,7 +68,7 @@ export default class CheckIn extends Component {
   getGoalsData(){
     if (this.state.event_id !== null){
       AsyncStorage.getItem('id_token').then((token) => {
-        fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
+        fetch('https://boiling-mesa-67164.herokuapp.com/events/goals/' + this.state.event_id, {
           method: 'GET',
           headers: {
             'Authorization': 'Bearer ' + token,
@@ -112,7 +112,7 @@ export default class CheckIn extends Component {
 
   sendGoalCompletion(){
     AsyncStorage.getItem('id_token').then((token) => {
-      fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
+      fetch('https://boiling-mesa-67164.herokuapp.com/events/goals/' + this.state.event_id, {
         method: 'PUT',
         headers: {
           'Authorization': 'Bearer ' + token,

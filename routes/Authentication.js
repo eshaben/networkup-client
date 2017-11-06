@@ -20,7 +20,7 @@ class Authentication extends Component {
 
   userSignup() {
     if (!this.state.email || !this.state.password) return;
-    fetch('http://localhost:3000/auth/signup', {
+    fetch('https://boiling-mesa-67164.herokuapp.com/auth/signup', {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -41,7 +41,7 @@ class Authentication extends Component {
 
   userLogin() {
     if (!this.state.email || !this.state.password) return;
-    fetch('http://localhost:3000/auth/login', {
+    fetch('https://boiling-mesa-67164.herokuapp.com/auth/login', {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({

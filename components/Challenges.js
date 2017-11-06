@@ -12,27 +12,7 @@ class Challenges extends Component {
     this.state = {
       data: [],
       userData: null,
-      challenges: [],
-      challenge1: false,
-      challenge2: false,
-      challenge3: false,
-      challenge4: false,
-      challenge5: false,
-      challenge6: false,
-      challenge7: false,
-      challenge8: false,
-      challenge9: false,
-      challenge10: false,
-      challenge11: false,
-      challenge12: false,
-      challenge13: false,
-      challenge14: false,
-      challenge15: false,
-      challenge16: false,
-      challenge17: false,
-      challenge18: false,
-      challenge19: false,
-      challenge20: false
+      challenges: []
     };
   }
 
@@ -43,7 +23,7 @@ class Challenges extends Component {
 
   getChallenges() {
     AsyncStorage.getItem('id_token').then((token) => {
-      fetch('http://localhost:3000/challenges', {
+      fetch('https://boiling-mesa-67164.herokuapp.com/challenges', {
         method: 'GET',
         headers: { 'Authorization': 'Bearer ' + token }
       })
@@ -61,7 +41,7 @@ class Challenges extends Component {
     AsyncStorage.getItem('id_token').then((token) => {
       let decodedToken = jwt_decode(token)
       let id = decodedToken.id
-      fetch('http://localhost:3000/account_challenges/' + id, {
+      fetch('https://boiling-mesa-67164.herokuapp.com/account_challenges/' + id, {
         method: 'GET',
         headers: { 'Authorization': 'Bearer ' + token }
       })
@@ -80,7 +60,7 @@ class Challenges extends Component {
 
   getChallengesById(id) {
     AsyncStorage.getItem('id_token').then((token) => {
-      fetch('http://localhost:3000/challenges/' + id, {
+      fetch('https://boiling-mesa-67164.herokuapp.com/challenges/' + id, {
         method: 'GET',
         headers: { 'Authorization': 'Bearer ' + token }
       })

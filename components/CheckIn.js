@@ -36,7 +36,7 @@ export default class CheckIn extends Component {
     AsyncStorage.getItem('id_token').then((token) => {
       let decodedToken = jwt_decode(token)
       let id = decodedToken.id
-      fetch('http://localhost:3000/events', {
+      fetch('https://boiling-mesa-67164.herokuapp.com/events', {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer ' + token,

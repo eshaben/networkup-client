@@ -24,7 +24,7 @@ class SetGoals extends Component {
       let decodedToken = jwt_decode(token)
       let id = decodedToken.id
       console.log(id);
-      fetch('http://localhost:3000/events', {
+      fetch('https://boiling-mesa-67164.herokuapp.com/', {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer ' + token,

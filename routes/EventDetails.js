@@ -26,7 +26,7 @@ class EventDetails extends Component {
     this.getEventId()
     AsyncStorage.getItem('id_token').then((token) => {
       let decodedToken = jwt_decode(token)
-      fetch('http://localhost:3000/events/goals/' + this.state.event_id, {
+      fetch('https://boiling-mesa-67164.herokuapp.com/events/goals/' + this.state.event_id, {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer ' + token,

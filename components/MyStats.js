@@ -52,7 +52,7 @@ class MyStats extends Component {
     AsyncStorage.getItem('id_token').then((token) => {
       let decodedToken = jwt_decode(token)
       let id = decodedToken.id
-      fetch('http://localhost:3000/events/retros/byuser/' + id, {
+      fetch('https://boiling-mesa-67164.herokuapp.com/events/retros/byuser/' + id, {
         method: 'GET',
         headers: { 'Authorization': 'Bearer ' + token }
       })
@@ -98,7 +98,7 @@ class MyStats extends Component {
     let images = []
     AsyncStorage.getItem('id_token').then((token) => {
       let decodedToken = jwt_decode(token)
-      fetch('http://localhost:3000/badges/' + decodedToken.id, {
+      fetch('https://boiling-mesa-67164.herokuapp.com/badges/' + decodedToken.id, {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer ' + token,
