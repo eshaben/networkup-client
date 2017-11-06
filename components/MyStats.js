@@ -5,6 +5,7 @@ import styles from '../routes/styles';
 import {Thumbnail} from 'native-base'
 import { Card, ListItem, Button, Rating } from 'react-native-elements';
 import jwt_decode from 'jwt-decode';
+import { Stars } from 'react-native-stars';
 import {
   VictoryAxis, VictoryPie, VictoryPolarAxis, VictoryArea, VictoryBar, VictoryChart, VictoryStack, VictoryTheme }
 from "victory-native";
@@ -168,7 +169,7 @@ class MyStats extends Component {
                 colorScale={["tomato", "orange", "gold", "cyan", "navy" ]}
                 data={[
                   {x: 1, y: this.state.meaningful_conversations, label: "Meaningful: " + this.state.meaningful_conversations},
-                  {x: 2, y: this.state.conversations, label: "Total Converations: " + this.state.conversations}
+                  {x: 2, y: this.state.conversations, label: "Total: " + this.state.conversations}
                 ]}
               />
             </View>

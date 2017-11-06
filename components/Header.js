@@ -4,8 +4,13 @@ import {Header, Text} from 'native-base';
 export default class HeaderExample extends Component {
   render(){
     return (
-      <Header hasTabs>
-        <Text style={styles.subtitle}> NetworkUp </Text>
+      <Header hasTabs style={{backgroundColor: '#ffa43e'}}>
+        <Text style={{
+          fontSize: 25,
+          margin: 10,
+          textAlign: 'left',
+          color:'white'
+        }}> NetworkUp </Text>
       </Header>
     )
   }
