@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Alert, Image, Text, StyleSheet, TouchableOpacity, View, AsyncStorage, ScrollView} from 'react-native';
+import {Alert, Text, StyleSheet, TouchableOpacity, View, AsyncStorage, ScrollView} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import styles from '../routes/styles';
 import { Thumbnail } from 'native-base';

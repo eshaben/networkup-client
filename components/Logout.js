@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Header, Text, View} from 'native-base';
+import { Text, View} from 'native-base';
 import {TouchableOpacity, AsyncStorage, Alert} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import styles from '../routes/styles.js'

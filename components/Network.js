@@ -6,8 +6,6 @@ import styles from '../routes/styles';
 import jwt_decode from 'jwt-decode';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-
-
 export default class CheckIn extends Component {
 
   constructor() {
@@ -25,34 +23,8 @@ export default class CheckIn extends Component {
   }
 
   componentDidMount(){
-    AsyncStorage.getItem('event_id').then((data) => {
-      this.setState({event_id: data})
-    })
-    AsyncStorage.getItem('id_token').then((token) => {
-      fetch('https://boiling-mesa-67164.herokuapp.com/events/goals/' + this.state.event_id, {
-        method: 'GET',
-        headers: {
-          'Authorization': 'Bearer ' + token,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-         }
-      })
-      .then((response) => response.text())
-      .then((data) => {
-        data = JSON.parse(data)
-        let eventGoals = data[0].goals
-        if (eventGoals.length > 0){
-          this.setState({goals: eventGoals})
-          this.setState({one_completed: data[0].goals[0].one_completed})
-          this.setState({two_completed: eventGoals[0].two_completed})
-          this.setState({three_completed: eventGoals[0].three_completed})
-          this.setState({one_description: eventGoals[0].one_description})
-          this.setState({two_description: eventGoals[0].two_description})
-          this.setState({three_description: eventGoals[0].three_description})
-        }
-      })
-      .done();
-    })
+    this.getEventId()
+    this.getGoalsData()
   }
 
   componentWillMount(){
@@ -184,10 +156,10 @@ export default class CheckIn extends Component {
               <Text style={styles.text}> {this.state.one_description} </Text>
               </View>
             <View style = {inlineStyles.buttonWrapper}>
-            <Button iconLeft bordered success onPress={this.confirmGoalOne.bind(this)}>
-              <MaterialIcons style={{fontSize: 18}} name="check" />
-              <Text >{completedOne} </Text>
-            </Button>
+              <Button iconLeft bordered success onPress={this.confirmGoalOne.bind(this)}>
+                <MaterialIcons style={{fontSize: 18}} name="check" />
+                <Text >{completedOne} </Text>
+              </Button>
             </View>
 
             <View style={inlineStyles.footerWrapper}>
@@ -213,9 +185,9 @@ export default class CheckIn extends Component {
             </View>
 
             <View style={inlineStyles.seperator}>
-            <TouchableOpacity style={styles.buttonWrapper} onPress={this.sendGoalCompletion.bind(this)}>
-              <Text style={styles.buttonText}> Done </Text>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.buttonWrapper} onPress={this.sendGoalCompletion.bind(this)}>
+                <Text style={styles.buttonText}> Done </Text>
+              </TouchableOpacity>
             </View>
           </View>
         )

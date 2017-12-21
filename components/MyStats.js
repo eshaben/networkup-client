@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
-import {Alert, Image, StyleSheet, Text, TouchableOpacity, View, AsyncStorage, ScrollView} from 'react-native';
-import {Actions} from 'react-native-router-flux';
+import { Image, StyleSheet, Text, View, AsyncStorage, ScrollView} from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import styles from '../routes/styles';
-import {Thumbnail} from 'native-base'
-import { Card, ListItem, Button, Rating } from 'react-native-elements';
+import { Card, ListItem, Button } from 'react-native-elements';
 import jwt_decode from 'jwt-decode';
-import { Stars } from 'react-native-stars';
-import {
-  VictoryAxis, VictoryPie, VictoryPolarAxis, VictoryArea, VictoryBar, VictoryChart, VictoryStack, VictoryTheme }
-from "victory-native";
+import { VictoryPie } from "victory-native";
 
 class MyStats extends Component {
 

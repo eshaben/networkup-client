@@ -13,15 +13,11 @@ export default class CheckIn extends Component {
   }
 
   componentWillUpdate(){
-    AsyncStorage.getItem('event_id').then((data) => {
-      this.setState({event_id: data})
-    })
+    this.getEventId()
   }
 
   componentDidMount(){
-    AsyncStorage.getItem('event_id').then((data) => {
-      this.setState({event_id: data})
-    })
+    this.getEventId()
   }
 
   async saveItem(item, selectedValue) {
@@ -67,7 +63,6 @@ export default class CheckIn extends Component {
     })
   }
 
-
   render(){
     if(this.state.event_id === null){
       return (
@@ -81,11 +76,10 @@ export default class CheckIn extends Component {
           </View>
           <View style={{alignItems: 'center', marginBottom: 120}}>
             <Text style={styles.subtitle}> Are you ready to check into an event? </Text>
-          <TouchableOpacity style={styles.buttonWrapper} onPress={this.checkIn.bind(this)}>
-            <Text style={styles.buttonText}> Check In </Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonWrapper} onPress={this.checkIn.bind(this)}>
+              <Text style={styles.buttonText}> Check In </Text>
+            </TouchableOpacity>
           </View>
-
         </View>
       )
     } else {

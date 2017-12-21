@@ -19,6 +19,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "auth0-js": "^8.12.1",
     "expo": "^21.0.0",
     "jwt-decode": "^2.2.0",
     "jwt-simple": "^0.5.1",

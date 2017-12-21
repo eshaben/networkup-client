@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text, Tab, Tabs, ScrollableTab } from 'native-base';
-import styles from '../routes/styles.js'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { Container} from 'native-base';
 import Challenges from './Challenges.js'
 import HeaderExample from './Header.js'
 import FooterTabs from './Footer.js'
